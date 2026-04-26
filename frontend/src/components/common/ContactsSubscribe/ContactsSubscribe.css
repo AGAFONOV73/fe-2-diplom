@@ -1,0 +1,128 @@
+/* ContactsSubscribe.css */
+.bottom-block {
+  background: #ffffff;
+  border-top: 1px solid #e9eef3;
+  border-bottom: 1px solid #e9eef3;
+  padding: 56px 0 48px;
+}
+
+.bottom-block__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 64px;
+  justify-content: space-between;
+}
+
+.bottom-block__contact {
+  flex: 1.2;
+  min-width: 260px;
+}
+
+.bottom-block__title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #1a2c3e;
+}
+
+.contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.contact-list li i {
+  width: 24px;
+  color: #0066cc;
+}
+
+.bottom-block__subscribe {
+  flex: 1;
+  min-width: 280px;
+}
+
+.subscribe-text {
+  font-size: 15px;
+  color: #4a627a;
+  margin-bottom: 20px;
+}
+
+.subscribe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.subscribe-input {
+  flex: 2;
+  padding: 14px 18px;
+  border: 1px solid #cfdfed;
+  border-radius: 48px;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.subscribe-btn {
+  background: #1e2f3d;
+  color: white;
+  border: none;
+  padding: 0 28px;
+  border-radius: 48px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.social-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 500;
+  background: #f0f4f9;
+  padding: 8px 18px;
+  border-radius: 48px;
+  transition: 0.2s;
+}
+
+.social-icon:hover {
+  background: #e6f0ff;
+  color: #0066cc;
+}
+
+@media (max-width: 860px) {
+  .bottom-block__inner {
+    flex-direction: column;
+    gap: 48px;
+  }
+  .subscribe-form {
+    flex-direction: column;
+  }
+  .subscribe-btn {
+    width: 100%;
+    padding: 12px;
+  }
+}

@@ -1,0 +1,104 @@
+.confirmation-page {
+  padding: 3rem 0 5rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.confirmation-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin: 0 auto 1.5rem;
+}
+
+.confirmation-card h1 {
+  color: #1a2c3e;
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-details {
+  text-align: left;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 1rem;
+}
+
+.order-details h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #1a2c3e;
+}
+
+.details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detail-item .label {
+  color: #6c86a3;
+}
+
+.detail-item .value {
+  font-weight: 500;
+  color: #1a2c3e;
+}
+
+.detail-item.total {
+  border-bottom: none;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+  font-weight: bold;
+}
+
+.detail-item.total .value {
+  color: #0066cc;
+  font-size: 1.125rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .confirmation-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

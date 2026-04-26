@@ -1,0 +1,31 @@
+.passenger-page {
+  padding: 2rem 0 4rem;
+}
+
+.passenger-page__summary {
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border-left: 4px solid #0066cc;
+}
+
+.summary-card h3 {
+  margin-bottom: 1rem;
+  color: #1a2c3e;
+}
+
+.summary-card p {
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+.summary-card .total-price {
+  font-weight: bold;
+  color: #0066cc;
+  font-size: 1.125rem;
+  margin-top: 0.5rem;
+}

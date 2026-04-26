@@ -1,0 +1,8 @@
+/* HomePage.css */
+
+.home-page {
+  /* если нужны специфические стили для главной страницы */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

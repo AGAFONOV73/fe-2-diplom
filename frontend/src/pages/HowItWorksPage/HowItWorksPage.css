@@ -1,0 +1,73 @@
+.how-it-works-page {
+  padding: 3rem 0 5rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.step-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+}
+
+.step-card__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.step-card__number {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #0066cc10;
+  opacity: 0.5;
+}
+
+.step-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #1a2c3e;
+}
+
+.step-card__description {
+  color: #6c86a3;
+  line-height: 1.5;
+}
+
+.how-it-works__cta {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.cta-box {
+  background: linear-gradient(135deg, #0066cc, #0099ff);
+  color: white;
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+.cta-box h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.cta-box p {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}

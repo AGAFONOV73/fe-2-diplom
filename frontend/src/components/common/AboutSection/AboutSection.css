@@ -1,0 +1,81 @@
+.home-section {
+  padding: 144px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.home-section--light {
+  background: #ffffff;
+}
+
+.about-full {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Заголовок сверху */
+.about-header {
+  margin-bottom: 24px;
+}
+
+.about-title {
+  margin: 0 !important;
+  text-align: left !important;
+  font-size: 36px;
+  font-weight: 500;
+  color: #292929;
+}
+
+/* Блок: жёлтая полоса + текст (рядом) */
+.about-content {
+  display: flex;
+  gap: 24px;
+}
+
+/* Жёлтая вертикальная полоса */
+.yellow-bar {
+  width: 8px;
+  background: #ffa800;
+  border-radius: 4px;
+  flex-shrink: 0;
+  /* Высота автоматическая — подстраивается под текст */
+  align-self: stretch;
+}
+
+/* Текст справа от полосы */
+.about-text {
+  flex: 1;
+  font-size: 24px;
+  font-weight: 400;
+  color: #292929;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.about-text p {
+  word-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+.highlight {
+  font-weight: 700;
+  color: #292929;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .about-text {
+    font-size: 18px;
+  }
+
+  .about-title {
+    font-size: 28px;
+  }
+
+  .about-content {
+    gap: 16px;
+  }
+
+  .yellow-bar {
+    width: 6px;
+  }
+}

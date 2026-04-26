@@ -1,28 +1,36 @@
 {
-  "name": "frontend",
+  "name": "fe-2-diplom",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Создать SPA на React для сервиса покупки билетов на ж/д, свёрстанное по макетам в Figma",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0",
+    "axios": "^1.6.0",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.4",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "globals": "^17.4.0",
-    "vite": "^8.0.4"
-  }
+    "vite": "^8.0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AGAFONOV73/fe-2-diplom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AGAFONOV73/fe-2-diplom/issues"
+  },
+  "homepage": "https://github.com/AGAFONOV73/fe-2-diplom#readme"
 }
