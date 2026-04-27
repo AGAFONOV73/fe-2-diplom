@@ -1,23 +1,35 @@
 .train-page {
-  padding: 2rem 0 4rem;
+  background: #f3f3f7;
+  padding: 0 0 4rem;
+}
+
+.train-page__layout {
+  display: flex;
+  gap: 24px;
+  padding-top: 2rem;
+}
+
+.train-page__main {
+  flex: 1;
 }
 
 .train-page__header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .train-page__title {
-  font-size: 1.75rem;
-  color: #1a2c3e;
+  font-size: 2rem;
+  color: #292929;
   margin-bottom: 1rem;
 }
 
 .train-info {
   display: flex;
   gap: 2rem;
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: #fff;
+  border: 1px solid #d9d9df;
+  border-bottom: 0;
 }
 
 .train-info__item {
@@ -35,9 +47,9 @@
 }
 
 .train-page__footer {
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #d9d9df;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,6 +67,10 @@
 }
 
 @media (max-width: 768px) {
+  .train-page__layout {
+    flex-direction: column;
+  }
+
   .train-info {
     flex-direction: column;
     gap: 0.5rem;

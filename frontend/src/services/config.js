@@ -5,3 +5,10 @@ export const API_CONFIG = {
     "Content-Type": "application/json",
   },
 };
+
+export const ENDPOINTS = {
+  TICKETS: "/routes",
+  SEARCH: "/routes",
+  PAYMENT: "/order",
+  USER: "/users/me",
+};

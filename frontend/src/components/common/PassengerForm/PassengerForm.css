@@ -1,13 +1,13 @@
 .passenger-form {
   background: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
+  border: 1px solid #d9d9df;
+  padding: 1.25rem;
 }
 
 .passenger-form__section {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
 }
 
 .passenger-form__section:last-child {
@@ -17,7 +17,7 @@
 }
 
 .passenger-form__title {
-  color: #1a2c3e;
+  color: #292929;
   margin-bottom: 1rem;
   font-size: 1.125rem;
 }
@@ -50,12 +50,12 @@
 
 .select:focus {
   outline: none;
-  border-color: #0066cc;
+  border-color: #ffa800;
 }
 
 .passenger-form__actions {
   margin-top: 2rem;
-  text-align: center;
+  text-align: right;
 }
 
 @media (max-width: 768px) {

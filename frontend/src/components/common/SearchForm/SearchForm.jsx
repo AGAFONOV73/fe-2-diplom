@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../ui/Button";
 import "./SearchForm.css";
 
-export function SearchForm({ hero = false, onSearch }) {
+export function SearchForm({ hero = false, onSearch, initialData }) {
   const navigate = useNavigate();
   const [searchData, setSearchData] = useState({
     from: "",
     to: "",
     date: "",
     passengers: 1,
+    ...initialData,
   });
 
   const handleChange = (e) => {

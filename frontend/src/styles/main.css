@@ -57,12 +57,12 @@ body {
 }
 
 .btn--primary {
-  background: var(--color-primary);
-  color: white;
+  background: #ffa800;
+  color: #292929;
 }
 
 .btn--primary:hover:not(:disabled) {
-  background: var(--color-primary-dark);
+  background: #ffbf33;
   transform: translateY(-2px);
 }
 

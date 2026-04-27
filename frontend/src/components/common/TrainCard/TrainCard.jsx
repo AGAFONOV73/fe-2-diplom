@@ -26,7 +26,7 @@ export function TrainCard({ train }) {
 
       <div className="train-card__footer">
         <div className="free-seats">Свободных мест: {train.freeSeats}</div>
-        <Link to={`/train/${train.id}`} className="select-btn">
+        <Link to={`/train/${train.id}`} state={{ train }} className="select-btn">
           Выбрать места
         </Link>
       </div>

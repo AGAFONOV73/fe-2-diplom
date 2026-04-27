@@ -1,5 +1,23 @@
 .payment-page {
-  padding: 2rem 0 4rem;
+  background: #f3f3f7;
+  padding: 0 0 4rem;
+}
+
+.payment-page__layout {
+  display: flex;
+  gap: 24px;
+  padding-top: 2rem;
+}
+
+.payment-page__main {
+  flex: 1;
+}
+
+.payment-page__title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-size: 1.8rem;
 }
 
 .payment-page__content {
@@ -10,9 +28,8 @@
 
 .payment-form {
   background: white;
-  border-radius: 1rem;
+  border: 1px solid #d9d9df;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .payment-form h2 {
@@ -36,6 +53,11 @@
   border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s;
+}
+
+.payment-method--cash {
+  margin-top: 1rem;
+  border-top: 1px solid #e2e8f0;
 }
 
 .payment-method:hover {
@@ -83,8 +105,8 @@
 }
 
 .payment-summary {
-  background: #f8fafc;
-  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid #d9d9df;
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
@@ -114,7 +136,7 @@
 }
 
 .summary-total .total-price {
-  color: #0066cc;
+  color: #ffa800;
   font-size: 1.25rem;
 }
 
@@ -125,6 +147,10 @@
 }
 
 @media (max-width: 768px) {
+  .payment-page__layout {
+    flex-direction: column;
+  }
+
   .payment-page__content {
     grid-template-columns: 1fr;
   }

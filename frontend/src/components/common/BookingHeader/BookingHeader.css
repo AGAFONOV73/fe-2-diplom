@@ -1,0 +1,148 @@
+.booking-header {
+  position: relative;
+  z-index: 10;
+}
+
+.booking-header__top {
+  background: #2d2b2f;
+  color: #fff;
+}
+
+.booking-header__top-inner {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.booking-header__logo {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.booking-header__nav {
+  display: flex;
+  gap: 36px;
+}
+
+.booking-header__nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  opacity: 0.85;
+}
+
+.booking-header__search {
+  background-image:
+    linear-gradient(rgba(18, 18, 23, 0.72), rgba(18, 18, 23, 0.72)),
+    url("/src/assets/images/mask-proup.jpg");
+  background-size: cover;
+  background-position: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.booking-header__search-inner {
+  min-height: 128px;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.booking-search-group__title {
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 24px;
+}
+
+.booking-search-group__row {
+  display: flex;
+  gap: 10px;
+}
+
+.booking-search-group__row input {
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-radius: 2px;
+  padding: 0 12px;
+}
+
+.booking-header__search-btn {
+  height: 42px;
+  border: none;
+  border-radius: 2px;
+  background: #ffa800;
+  color: #292929;
+  font-weight: 700;
+  padding: 0 24px;
+  margin-bottom: 1px;
+  cursor: pointer;
+}
+
+.booking-steps {
+  background: #3e3c45;
+}
+
+.booking-steps__inner {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.booking-step {
+  color: #fff;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 16px 50%);
+  padding: 0 10px;
+}
+
+.booking-step__number {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.booking-step--active {
+  background: #ffa800;
+  color: #fff;
+  opacity: 1;
+}
+
+.booking-step--active .booking-step__number {
+  border-color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .booking-header {
+    position: static;
+  }
+
+  .booking-header__search-inner {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .booking-header__search-btn {
+    width: 100%;
+  }
+
+  .booking-steps__inner {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 8px 0;
+  }
+}

@@ -1,5 +1,23 @@
 .passenger-page {
-  padding: 2rem 0 4rem;
+  background: #f3f3f7;
+  padding: 0 0 4rem;
+}
+
+.passenger-page__layout {
+  display: flex;
+  gap: 24px;
+  padding-top: 2rem;
+}
+
+.passenger-page__main {
+  flex: 1;
+}
+
+.passenger-page__title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  font-size: 1.8rem;
 }
 
 .passenger-page__summary {
@@ -7,10 +25,9 @@
 }
 
 .summary-card {
-  background: #f8fafc;
-  border-radius: 1rem;
+  background: #fff;
+  border: 1px solid #d9d9df;
   padding: 1.5rem;
-  border-left: 4px solid #0066cc;
 }
 
 .summary-card h3 {
@@ -25,7 +42,13 @@
 
 .summary-card .total-price {
   font-weight: bold;
-  color: #0066cc;
+  color: #ffa800;
   font-size: 1.125rem;
   margin-top: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .passenger-page__layout {
+    flex-direction: column;
+  }
 }

@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Container } from "../../components/ui/Container";
 import { SearchForm } from "../../components/common/SearchForm";
 import { SearchFilters } from "../../components/common/SearchFilters";
 import { TrainCard } from "../../components/common/TrainCard";
 import { Loader } from "../../components/ui/Loader";
+import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
+import { BookingSidebar } from "../../components/common/BookingSidebar/BookingSidebar";
+import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
 import "./SearchPage.css";
 
 export function SearchPage() {
+  const location = useLocation();
+  const initialSearchData = location.state?.searchData || getBookingDraft()?.searchData;
   const [trains, setTrains] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false);
@@ -49,6 +55,7 @@ export function SearchPage() {
   ];
 
   const handleSearch = (searchData) => {
+    saveBookingDraft({ searchData });
     setLoading(true);
     setSearchPerformed(true);
     // Имитация API запроса
@@ -60,42 +67,49 @@ export function SearchPage() {
 
   return (
     <div className="search-page">
-      <div className="search-page__hero">
-        <Container>
-          <h1 className="search-page__title">Поиск билетов</h1>
-          <SearchForm onSearch={handleSearch} />
-        </Container>
-      </div>
+      <BookingHeader activeStep={1} />
 
       <Container>
         <div className="search-page__content">
-          {searchPerformed && (
-            <div className="search-page__results">
-              <div className="search-page__filters">
-                <SearchFilters />
-              </div>
-              <div className="search-page__trains">
+          <div className="search-page__left">
+            <BookingSidebar />
+          </div>
+          <div className="search-page__right">
+            <div className="search-page__form">
+              <SearchForm onSearch={handleSearch} initialData={initialSearchData} />
+            </div>
+
+            {searchPerformed && (
+              <div className="search-page__results">
                 {loading ? (
-                  <Loader />
-                ) : trains.length > 0 ? (
-                  <>
-                    <div className="results-count">
-                      Найдено {trains.length} поездов
-                    </div>
-                    {trains.map((train) => (
-                      <TrainCard key={train.id} train={train} />
-                    ))}
-                  </>
-                ) : (
-                  <div className="no-results">
-                    <p>
-                      Поездов не найдено. Попробуйте изменить параметры поиска.
-                    </p>
+                  <div className="search-page__loading-screen">
+                    <h3>ИДЕТ ПОИСК</h3>
+                    <Loader />
+                    <div className="search-page__loading-line" />
                   </div>
+                ) : (
+                  <>
+                    <div className="search-page__filters">
+                      <SearchFilters />
+                    </div>
+                    <div className="search-page__trains">
+                      <div className="results-count">найдено {trains.length}</div>
+                      {trains.length > 0 ? (
+                        trains.map((train) => <TrainCard key={train.id} train={train} />)
+                      ) : (
+                        <div className="no-results">
+                          <p>
+                            Поездов не найдено. Попробуйте изменить параметры
+                            поиска.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </Container>
     </div>

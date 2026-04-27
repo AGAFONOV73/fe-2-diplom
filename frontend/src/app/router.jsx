@@ -10,6 +10,7 @@ import { TrainPage } from "../pages/TrainPage/TrainPage";
 import { PassengerPage } from "../pages/PassengerPage/PassengerPage";
 import { PaymentPage } from "../pages/PaymentPage/PaymentPage";
 import { ConfirmationPage } from "../pages/ConfirmationPage/ConfirmationPage";
+import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "about", element: <AboutPage /> },
       { path: "how-it-works", element: <HowItWorksPage /> },
       { path: "reviews", element: <ReviewsPage /> },
+      { path: "contacts", element: <ContactsPage /> },
       { path: "search", element: <SearchPage /> },
       { path: "last-tickets", element: <LastTicketsPage /> },
       { path: "train/:id", element: <TrainPage /> },

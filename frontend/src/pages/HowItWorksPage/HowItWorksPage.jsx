@@ -31,7 +31,7 @@ export function HowItWorksPage() {
     {
       number: "05",
       title: "Безопасная оплата",
-      description: "Защита ваших данных и多种 способы оплаты.",
+      description: "Защита ваших данных и разные способы оплаты.",
       icon: "🔒",
     },
     {

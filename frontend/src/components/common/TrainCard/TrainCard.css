@@ -1,14 +1,12 @@
 .train-card {
   background: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
+  border: 1px solid #c4c4c4;
+  padding: 1.25rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s;
 }
 
 .train-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-color: #ffa800;
 }
 
 .train-card__header {
@@ -27,7 +25,7 @@
 
 .train-price {
   font-weight: bold;
-  color: #0066cc;
+  color: #ffa800;
   font-size: 1.125rem;
 }
 
@@ -99,19 +97,19 @@
 
 .free-seats {
   font-size: 0.875rem;
-  color: #10b981;
+  color: #928f94;
 }
 
 .select-btn {
-  background: #0066cc;
-  color: white;
+  background: #ffa800;
+  color: #292929;
   padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 2px;
   text-decoration: none;
   font-size: 0.875rem;
   transition: background 0.3s;
 }
 
 .select-btn:hover {
-  background: #0052a3;
+  background: #ffbf33;
 }

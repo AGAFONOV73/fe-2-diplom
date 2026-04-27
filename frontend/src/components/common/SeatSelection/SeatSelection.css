@@ -1,20 +1,59 @@
 .seat-selection {
   background: white;
-  border-radius: 1rem;
-  padding: 1.5rem;
+  border: 1px solid #d9d9df;
+  padding: 1.25rem;
 }
 
 .seat-selection__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .seat-selection__header h3 {
-  color: #1a2c3e;
+  color: #292929;
+  font-size: 2rem;
+}
+
+.seat-selection__switch-btn {
+  border: 1px solid #928f94;
+  background: #fff;
+  padding: 10px 16px;
+  border-radius: 3px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.seat-selection__meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: #928f94;
+}
+
+.seat-selection__types {
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 0;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 14px;
+}
+
+.seat-selection__types button {
+  border: none;
+  background: transparent;
+  color: #c4c4c4;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.seat-selection__types button.active {
+  color: #ffa800;
+  font-weight: 700;
 }
 
 .seat-legend {
@@ -41,7 +80,7 @@
 }
 
 .seat-demo--selected {
-  background: #0066cc;
+  background: #ffa800;
 }
 
 .seat-demo--unavailable {
@@ -50,11 +89,40 @@
 }
 
 .seat-scheme {
-  background: #f8fafc;
-  border-radius: 0.5rem;
+  background: #fbfbfb;
+  border: 1px solid #e5e5ea;
   padding: 1rem;
   margin-bottom: 1rem;
   overflow-x: auto;
+}
+
+.scheme-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.wagon-number {
+  width: 92px;
+  background: #ffd98f;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.wagon-number strong {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.wagon-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .scheme-header {
@@ -70,15 +138,17 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+  gap: 4px;
 }
 
 .seat {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 12px;
   transition: all 0.2s;
 }
 
@@ -93,8 +163,8 @@
 }
 
 .seat--selected {
-  background: #0066cc;
-  color: white;
+  background: #ffa800;
+  color: #292929;
 }
 
 .seat--unavailable {
@@ -112,7 +182,7 @@
 
 .selected-info {
   font-weight: bold;
-  color: #0066cc;
+  color: #ffa800;
 }
 
 @media (max-width: 768px) {
