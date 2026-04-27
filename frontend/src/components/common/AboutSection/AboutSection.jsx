@@ -14,13 +14,13 @@ export function AboutSection() {
             <SectionTitle className="about-title">О нас</SectionTitle>
           </div>
           {/* Жёлтая полоса + текст (рядом) */}
-          <div className="about-content">
+          <div className="about-content_box">
             <div className="yellow-bar"></div>
             <div className="about-text">
               <p>
-                Мы рады видеть вас! Мы работаем для Вас с{" "}
-                <strong>2003 года</strong>. 14 лет мы наблюдаем, как с каждым
-                днем все больше людей заказывают жд билеты через интернет.
+                Мы рады видеть вас! Мы работаем для Вас с 2003 года. 14 лет мы
+                наблюдаем, как с каждым днем все больше людей заказывают жд
+                билеты через интернет.
               </p>
               <p>
                 Сегодня можно заказать железнодорожные билеты онлайн всего в 2

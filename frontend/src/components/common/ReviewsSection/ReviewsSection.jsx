@@ -1,48 +1,60 @@
-import { Link } from "react-router-dom";
 import { Container } from "../../ui/Container";
-import { SectionTitle } from "../../ui/SectionTitle";
-import { Button } from "../../ui/Button";
+
 import "./ReviewsSection.css";
 
 export function ReviewsSection() {
   return (
     <section className="home-section home-section--gray">
       <Container>
-        <SectionTitle>Отзывы пассажиров</SectionTitle>
-        <div className="reviews-wrapper">
-          <div className="review-card">
-            <div className="review-card__header">
-              <div className="review-card__avatar">Е</div>
-              <div className="review-card__info">
-                <div className="review-card__name">Екатерина Вальнова</div>
-                <div className="review-card__rating">★★★★★</div>
-              </div>
+        <div className="review-block__title">Отзывы</div>
+
+        <div className="reviews-split">
+          {/* Левый отзыв: фото → имя → текст */}
+          <div className="review-block">
+            <div className="review-block__avatar">
+              <img
+                src="/src/assets/images/foto-ekaterina.png"
+                alt="Екатерина Вальнова"
+                className="review-avatar-img"
+              />
             </div>
-            <ul className="review-list">
-              <li>Доброжелательная подсказка</li>
-              <li>На всех этапах помогут правильно заполнить поля</li>
-              <li>Бесплатная доставка из магазина</li>
-            </ul>
+            <div className="review-block__content">
+              <div className="review-block__name">Екатерина Вальнова</div>
+              <p className="review-block__text">
+                "Доброжелательные подсказки на всех этапах помогут правильно
+                заполнить поля и без затруднений купить авиа или ж/д билет, даже
+                если вы заказываете онлайн билет впервые."
+              </p>
+            </div>
           </div>
-          <div className="review-card">
-            <div className="review-card__header">
-              <div className="review-card__avatar">Е</div>
-              <div className="review-card__info">
-                <div className="review-card__name">Евгений Стрыкало</div>
-                <div className="review-card__rating">★★★★★</div>
-              </div>
+
+          {/* Правый отзыв: фото → имя → текст */}
+          <div className="review-block">
+            <div className="review-block__avatar">
+              <img
+                src="/src/assets/images/foto-evg.png"
+                alt="Евгений Стрыкало"
+                className="review-avatar-img"
+              />
             </div>
-            <ul className="review-list">
-              <li>Поддерживаюсь до посадки</li>
-              <li>Сразу после оплаты ж/д билета пришли к вам</li>
-              <li>СМС-отключение от посетителя</li>
-            </ul>
+            <div className="review-block__content">
+              <div className="review-block__name">Евгений Стрыкало</div>
+              <p className="review-block__text">
+                "СМС-сопровождение до посадки. Сразу после оплаты ж/д билетов и
+                за 3 часа до отправления мы пришли вам СМС-автоматичное о
+                поездке."
+              </p>
+            </div>
           </div>
         </div>
-        <div className="home-preview__action">
-          <Link to="/reviews">
-            <Button variant="outline">Все отзывы →</Button>
-          </Link>
+
+        {/* Пагинация точками */}
+        <div className="reviews-pagination">
+          <span className="pagination-dot pagination-dot--active"></span>
+          <span className="pagination-dot"></span>
+          <span className="pagination-dot"></span>
+          <span className="pagination-dot"></span>
+          <span className="pagination-dot"></span>
         </div>
       </Container>
     </section>

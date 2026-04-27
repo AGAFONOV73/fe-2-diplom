@@ -35,9 +35,6 @@
 }
 
 .logo-white {
-  width: 104px;
-  height: 49px;
-
   font-weight: 900;
   font-size: 36px;
   line-height: 100%;
@@ -112,7 +109,7 @@
 .hero-split {
   display: flex;
 
-  gap: 100px;
+  gap: 280px;
   align-items: center;
   justify-content: space-between;
 }

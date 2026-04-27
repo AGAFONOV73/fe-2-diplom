@@ -1,6 +1,6 @@
 /* ContactsSubscribe.css */
 .bottom-block {
-  background: #ffffff;
+  background: #2d2b2f;
   border-top: 1px solid #e9eef3;
   border-bottom: 1px solid #e9eef3;
   padding: 56px 0 48px;
@@ -19,10 +19,10 @@
 }
 
 .bottom-block__title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 500;
   margin-bottom: 28px;
-  color: #1a2c3e;
+  color: #ffffff;
 }
 
 .contact-list {
@@ -36,9 +36,9 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font-size: 16px;
-  color: #2c3e50;
-  font-weight: 500;
+  font-size: 24px;
+  color: #e5e5e5;
+  font-weight: 400;
 }
 
 .contact-list li i {
@@ -52,8 +52,9 @@
 }
 
 .subscribe-text {
-  font-size: 15px;
-  color: #4a627a;
+  font-size: 24px;
+  color: #e5e5e5;
+  font-weight: 400;
   margin-bottom: 20px;
 }
 
@@ -61,31 +62,35 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
 }
 
 .subscribe-input {
   flex: 2;
   padding: 14px 18px;
   border: 1px solid #cfdfed;
-  border-radius: 48px;
+  border-radius: 4px;
   font-family: inherit;
   font-size: 15px;
+  color: #e5e5e5;
+  font-weight: 400;
 }
 
 .subscribe-btn {
-  background: #1e2f3d;
+  margin-left: 32px;
   color: white;
-  border: none;
+  border: 1px solid #cfdfed;
   padding: 0 28px;
-  border-radius: 48px;
-  font-weight: 700;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight: 400;
   cursor: pointer;
 }
 
 .social-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 500;
+  color: #ffffff;
   margin-bottom: 18px;
 }
 
@@ -102,7 +107,7 @@
   text-decoration: none;
   color: #2c3e50;
   font-weight: 500;
-  background: #f0f4f9;
+
   padding: 8px 18px;
   border-radius: 48px;
   transition: 0.2s;

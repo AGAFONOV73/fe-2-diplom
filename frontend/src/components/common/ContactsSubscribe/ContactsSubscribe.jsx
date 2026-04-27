@@ -1,4 +1,13 @@
 import { Container } from "../../ui/Container";
+import mapIcon from "../../../assets/icons/map.svg"; // импорт иконки
+import callIcon from "../../../assets/icons/call.svg"; // импорт иконки
+import letterIcon from "../../../assets/icons/letter.svg"; // импорт иконки
+import trainIcon from "../../../assets/icons/train.svg"; // импорт иконки
+import playIcon from "../../../assets/icons/play.svg"; // импорт иконки
+import groupIcon from "../../../assets/icons/group.svg";
+import groupinIcon from "../../../assets/icons/groupin.svg"; // импорт иконки
+import facebookIcon from "../../../assets/icons/facebook.svg"; // импорт иконки
+import telegrammIcon from "../../../assets/icons/telegramm.svg"; // импорт иконки
 import "./ContactsSubscribe.css";
 
 export function ContactsSubscribe() {
@@ -11,22 +20,26 @@ export function ContactsSubscribe() {
             <h3 className="bottom-block__title">Свяжитесь с нами</h3>
             <ul className="contact-list">
               <li>
-                <i className="fas fa-phone-alt"></i> 8 (800) 000 00 00
+                <img src={callIcon} alt="call" className="contact-icon-img" />
+                <span>8 (800) 000 00 00</span>
               </li>
               <li>
-                <i className="fas fa-envelope"></i> inbox@mail.ru
+                <img
+                  src={letterIcon}
+                  alt="letter"
+                  className="contact-icon-img"
+                />
+                <span>inbox@mail.ru</span>
               </li>
               <li>
-                <i className="fas fa-train"></i> tu.train.tickets
+                <img src={trainIcon} alt="train" className="contact-icon-img" />
+                <span>tu.train.tickets</span>
               </li>
               <li>
-                <i className="fas fa-map-marker-alt"></i> г. Москва
-              </li>
-              <li>
-                <i className="fas fa-road"></i> ул. Московская 27-35
-              </li>
-              <li>
-                <i className="fas fa-credit-card"></i> 555 555
+                <img src={mapIcon} alt="map" className="contact-icon-img" />
+                <span>
+                  г. Москва <br /> ул. Московская 27-35 <br /> 555 555
+                </span>
               </li>
             </ul>
           </div>
@@ -48,10 +61,31 @@ export function ContactsSubscribe() {
             <h4 className="social-title">Подписывайтесь на нас</h4>
             <div className="social-icons">
               <a href="#" className="social-icon">
-                <i className="fab fa-google-plus-g"></i> <span>in G+</span>
+                <img src={playIcon} alt="play" className="contact-icon-img" />
               </a>
               <a href="#" className="social-icon">
-                <i className="fab fa-facebook-f"></i> <span>f</span>
+                <img
+                  src={groupinIcon}
+                  alt="groupin"
+                  className="contact-icon-img"
+                />
+              </a>
+              <a href="#" className="social-icon">
+                <img src={groupIcon} alt="group" className="contact-icon-img" />
+              </a>
+              <a href="#" className="social-icon">
+                <img
+                  src={facebookIcon}
+                  alt="facebook"
+                  className="contact-icon-img"
+                />
+              </a>
+              <a href="#" className="social-icon">
+                <img
+                  src={telegrammIcon}
+                  alt="telegramm"
+                  className="contact-icon-img"
+                />
               </a>
             </div>
           </div>

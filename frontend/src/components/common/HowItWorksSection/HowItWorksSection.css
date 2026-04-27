@@ -39,25 +39,33 @@
   display: flex;
   flex-wrap: wrap;
 }
-
+.how-link-btn {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  padding: 12px 32px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
 .feature-card-light {
   flex: 1;
 
-  backdrop-filter: blur(4px);
   border-radius: 28px;
   padding: 32px 24px;
   text-align: center;
   transition: transform 0.2s;
 }
 
-.feature-card-light:hover {
-  background: white;
-}
-
 .feature-icon {
   font-size: 44px;
   color: #0066cc;
   margin-bottom: 20px;
+  border-radius: 30px;
 }
 
 .feature-title {

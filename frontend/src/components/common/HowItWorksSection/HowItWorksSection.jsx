@@ -15,8 +15,8 @@ export function HowItWorksSection() {
       <Container>
         <div className="how-header">
           <SectionTitle className="how-title">Как это работает</SectionTitle>
-          <Link to="/how-it-works">
-            <Button variant="outline-light">Узнать больше →</Button>
+          <Link to="/how-it-works" className="how-link-btn">
+            Узнать больше →
           </Link>
         </div>
 
