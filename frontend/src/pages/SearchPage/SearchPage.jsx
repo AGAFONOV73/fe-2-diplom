@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Container } from "../../components/ui/Container";
-import { SearchForm } from "../../components/common/SearchForm";
+import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
 import { SearchFilters } from "../../components/common/SearchFilters";
 import { TrainCard } from "../../components/common/TrainCard";
+
 import { Loader } from "../../components/ui/Loader";
-import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
-import { BookingSidebar } from "../../components/common/BookingSidebar/BookingSidebar";
 import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
 import "./SearchPage.css";
 
 export function SearchPage() {
   const location = useLocation();
-  const initialSearchData = location.state?.searchData || getBookingDraft()?.searchData;
+  const initialSearchData =
+    location.state?.searchData || getBookingDraft()?.searchData;
+
   const [trains, setTrains] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [currentSearchData, setCurrentSearchData] = useState(initialSearchData);
 
-  // Моковые данные для демонстрации
   const mockTrains = [
     {
       id: 1,
@@ -41,75 +42,62 @@ export function SearchPage() {
       price: 3200,
       freeSeats: 12,
     },
-    {
-      id: 3,
-      number: "012В",
-      from: "Москва",
-      to: "Санкт-Петербург",
-      departureTime: "14:15",
-      arrivalTime: "19:45",
-      duration: "5ч 30м",
-      price: 2800,
-      freeSeats: 89,
-    },
   ];
 
   const handleSearch = (searchData) => {
+    setCurrentSearchData(searchData);
     saveBookingDraft({ searchData });
     setLoading(true);
     setSearchPerformed(true);
-    // Имитация API запроса
+
     setTimeout(() => {
       setTrains(mockTrains);
       setLoading(false);
-    }, 1000);
+    }, 1500);
   };
 
   return (
     <div className="search-page">
-      <BookingHeader activeStep={1} />
+      <BookingHeader
+        activeStep={1}
+        onSearch={handleSearch}
+        initialData={currentSearchData}
+      />
 
       <Container>
-        <div className="search-page__content">
-          <div className="search-page__left">
-            <BookingSidebar />
-          </div>
-          <div className="search-page__right">
-            <div className="search-page__form">
-              <SearchForm onSearch={handleSearch} initialData={initialSearchData} />
-            </div>
+        <div className="search-layout">
+          <aside className="search-sidebar">
+            <SearchFilters />
+          </aside>
 
-            {searchPerformed && (
-              <div className="search-page__results">
-                {loading ? (
-                  <div className="search-page__loading-screen">
-                    <h3>ИДЕТ ПОИСК</h3>
-                    <Loader />
-                    <div className="search-page__loading-line" />
-                  </div>
-                ) : (
-                  <>
-                    <div className="search-page__filters">
-                      <SearchFilters />
-                    </div>
-                    <div className="search-page__trains">
-                      <div className="results-count">найдено {trains.length}</div>
-                      {trains.length > 0 ? (
-                        trains.map((train) => <TrainCard key={train.id} train={train} />)
-                      ) : (
-                        <div className="no-results">
-                          <p>
-                            Поездов не найдено. Попробуйте изменить параметры
-                            поиска.
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
+          <main className="search-content">
+            {!searchPerformed ? (
+              <div className="search-placeholder">
+                Введите параметры и нажмите "Найти билеты"
               </div>
+            ) : loading ? (
+              <div className="search-loading">
+                <h3>ИДЕТ ПОИСК</h3>
+                <Loader />
+              </div>
+            ) : (
+              <>
+                <div className="results-count">
+                  Найдено {trains.length} поезд{trains.length !== 1 ? "ов" : ""}
+                </div>
+
+                {trains.length > 0 ? (
+                  trains.map((train) => (
+                    <TrainCard key={train.id} train={train} />
+                  ))
+                ) : (
+                  <div className="no-results">
+                    Поездов не найдено. Попробуйте изменить параметры поиска.
+                  </div>
+                )}
+              </>
             )}
-          </div>
+          </main>
         </div>
       </Container>
     </div>

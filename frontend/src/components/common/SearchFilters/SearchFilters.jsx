@@ -1,135 +1,293 @@
 import { useState } from "react";
+import cupeIcon from "../../../assets/icons/cupe.svg";
+import platskartIcon from "../../../assets/icons/platskart.svg";
+import sitIcon from "../../../assets/icons/sit.svg";
+import luxIcon from "../../../assets/icons/lux.svg";
+import wifiIcon from "../../../assets/icons/wi-fi.svg";
+import expressIcon from "../../../assets/icons/express.svg";
+import calendarIcon from "../../../assets/icons/calendar.svg";
+import rightIcon from "../../../assets/icons/right.svg";
+import leftIcon from "../../../assets/icons/left.svg";
+import groupPlusIcon from "../../../assets/icons/group-plus.svg";
 import "./SearchFilters.css";
 
-export function SearchFilters({ onFilterChange }) {
-  const [filters, setFilters] = useState({
-    priceMin: "",
-    priceMax: "",
-    departureStart: "",
-    departureEnd: "",
-    trainTypes: [],
-    amenities: [],
-  });
+function Calendar({ selectedDate, onSelect, onClose }) {
+  const today = new Date();
+  const [monthOffset, setMonthOffset] = useState(0);
 
-  const trainTypes = [
-    { id: "fast", label: "Скорый" },
-    { id: "passenger", label: "Пассажирский" },
-    { id: "express", label: "Экспресс" },
+  const currentMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + monthOffset,
+    1,
+  );
+
+  const monthNames = [
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
   ];
 
-  const amenities = [
-    { id: "wifi", label: "Wi-Fi" },
-    { id: "conditioner", label: "Кондиционер" },
-    { id: "bio", label: "Биотуалет" },
-    { id: "food", label: "Питание" },
-  ];
+  const daysInMonth = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth() + 1,
+    0,
+  ).getDate();
 
-  const handleChange = (key, value) => {
-    const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    if (onFilterChange) {
-      onFilterChange(newFilters);
-    }
-  };
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  const handleCheckboxChange = (key, id, checked) => {
-    const current = filters[key];
-    const updated = checked
-      ? [...current, id]
-      : current.filter((item) => item !== id);
-    handleChange(key, updated);
-  };
-
-  const handleReset = () => {
-    const resetFilters = {
-      priceMin: "",
-      priceMax: "",
-      departureStart: "",
-      departureEnd: "",
-      trainTypes: [],
-      amenities: [],
-    };
-    setFilters(resetFilters);
-    if (onFilterChange) {
-      onFilterChange(resetFilters);
-    }
+  const handleDateSelect = (day) => {
+    const dateString = `${String(day).padStart(2, "0")}.${String(currentMonth.getMonth() + 1).padStart(2, "0")}.${currentMonth.getFullYear()}`;
+    onSelect(dateString);
+    onClose();
   };
 
   return (
+    <div className="calendar-modal">
+      <div className="calendar">
+        <div className="calendar-header">
+          <button onClick={() => setMonthOffset(monthOffset - 1)}>&lt;</button>
+          <span>{monthNames[currentMonth.getMonth()]}</span>
+          <button onClick={() => setMonthOffset(monthOffset + 1)}>&gt;</button>
+        </div>
+        <div className="calendar-grid">
+          {days.map((d) => {
+            const dateString = `${String(d).padStart(2, "0")}.${String(currentMonth.getMonth() + 1).padStart(2, "0")}.${currentMonth.getFullYear()}`;
+            const isSelected = selectedDate === dateString;
+            return (
+              <div
+                key={d}
+                className={`calendar-day ${isSelected ? "selected" : ""}`}
+                onClick={() => handleDateSelect(d)}
+              >
+                {d}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SearchFilters({ onFilterChange }) {
+  const [filters, setFilters] = useState({
+    coupe: false,
+    platzkart: false,
+    sitting: false,
+    lux: false,
+    wifi: false,
+    express: false,
+  });
+
+  const [tripDate, setTripDate] = useState("30.08.2018");
+  const [returnDate, setReturnDate] = useState("09.09.2018");
+  const [showTripCalendar, setShowTripCalendar] = useState(false);
+  const [showReturnCalendar, setShowReturnCalendar] = useState(false);
+  const [priceRange, setPriceRange] = useState({ from: 1920, to: 7000 });
+
+  const options = [
+    { id: "coupe", label: "Купе", icon: cupeIcon, disabled: false },
+    {
+      id: "platzkart",
+      label: "Плацкарт",
+      icon: platskartIcon,
+      disabled: false,
+    },
+    { id: "sitting", label: "Сидячий", icon: sitIcon, disabled: false },
+    { id: "lux", label: "Люкс", icon: luxIcon, disabled: false },
+    { id: "wifi", label: "Wi-Fi", icon: wifiIcon, disabled: false },
+    { id: "express", label: "Экспресс", icon: expressIcon, disabled: false },
+  ];
+
+  const handleToggle = (key, disabled) => {
+    if (disabled) return;
+    const updated = { ...filters, [key]: !filters[key] };
+    setFilters(updated);
+    onFilterChange && onFilterChange(updated);
+  };
+
+  const handlePriceChange = (e) => {
+    const { name, value } = e.target;
+    const numValue = value === "" ? 0 : Number(value);
+    const updated = { ...priceRange, [name]: numValue };
+    setPriceRange(updated);
+    onFilterChange && onFilterChange({ ...filters, priceRange: updated });
+  };
+
+  const getPriceFill = () => {
+    const min = 1920;
+    const max = 7000;
+    const fromPercent = ((priceRange.from - min) / (max - min)) * 100;
+    const toPercent = ((priceRange.to - min) / (max - min)) * 100;
+    return { fromPercent, toPercent };
+  };
+
+  const { fromPercent, toPercent } = getPriceFill();
+
+  return (
     <div className="search-filters">
-      <div className="search-filters__header">
-        <h3>Фильтры</h3>
-        <button className="reset-btn" onClick={handleReset}>
-          Сбросить
-        </button>
-      </div>
-
-      <div className="filter-group">
-        <h4>Цена</h4>
-        <div className="price-range">
-          <input
-            type="number"
-            placeholder="от"
-            value={filters.priceMin}
-            onChange={(e) => handleChange("priceMin", e.target.value)}
-          />
-          <span>-</span>
-          <input
-            type="number"
-            placeholder="до"
-            value={filters.priceMax}
-            onChange={(e) => handleChange("priceMax", e.target.value)}
-          />
+      <div className="search-filters__dates">
+        <div className="date-block">
+          <div className="date-label">Дата поездки</div>
+          <div className="date-input-wrapper">
+            <input
+              type="text"
+              value={tripDate}
+              readOnly
+              className="date-input"
+              placeholder="ДД.ММ.ГГГГ"
+              onClick={() => setShowTripCalendar(true)}
+            />
+            <img
+              src={calendarIcon}
+              alt="calendar"
+              className="date-icon"
+              onClick={() => setShowTripCalendar(true)}
+            />
+          </div>
+          {showTripCalendar && (
+            <Calendar
+              selectedDate={tripDate}
+              onSelect={setTripDate}
+              onClose={() => setShowTripCalendar(false)}
+            />
+          )}
+        </div>
+        <div className="date-block">
+          <div className="date-label">Дата возвращения</div>
+          <div className="date-input-wrapper">
+            <input
+              type="text"
+              value={returnDate}
+              readOnly
+              className="date-input"
+              placeholder="ДД.ММ.ГГГГ"
+              onClick={() => setShowReturnCalendar(true)}
+            />
+            <img
+              src={calendarIcon}
+              alt="calendar"
+              className="date-icon"
+              onClick={() => setShowReturnCalendar(true)}
+            />
+          </div>
+          {showReturnCalendar && (
+            <Calendar
+              selectedDate={returnDate}
+              onSelect={setReturnDate}
+              onClose={() => setShowReturnCalendar(false)}
+            />
+          )}
         </div>
       </div>
 
-      <div className="filter-group">
-        <h4>Время отправления</h4>
-        <div className="time-range">
-          <input
-            type="time"
-            value={filters.departureStart}
-            onChange={(e) => handleChange("departureStart", e.target.value)}
-          />
-          <span>-</span>
-          <input
-            type="time"
-            value={filters.departureEnd}
-            onChange={(e) => handleChange("departureEnd", e.target.value)}
-          />
+      <div className="search-filters__section">
+        {options.map((opt) => (
+          <div
+            key={opt.id}
+            className={`filter-row 
+              ${filters[opt.id] ? "active" : ""} 
+              ${opt.disabled ? "disabled" : ""}
+            `}
+          >
+            <div className="filter-left">
+              <div className="filter-icon-wrapper">
+                <img
+                  src={opt.icon}
+                  alt={opt.label}
+                  className="filter-icon-img"
+                />
+              </div>
+              <span className="filter-label">{opt.label}</span>
+            </div>
+            <div
+              className={`toggle ${filters[opt.id] ? "active" : ""} ${opt.disabled ? "disabled" : ""}`}
+              onClick={() => handleToggle(opt.id, opt.disabled)}
+            >
+              <div className="toggle-circle" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="search-filters__section">
+        <h3 className="search-filters__title">Стоимость</h3>
+        <div className="price-range-wrapper">
+          <div className="price-inputs">
+            <span className="price-label">от</span>
+            <input
+              type="number"
+              name="from"
+              value={priceRange.from}
+              onChange={handlePriceChange}
+              className="price-input"
+            />
+            <span className="price-label">до</span>
+            <input
+              type="number"
+              name="to"
+              value={priceRange.to}
+              onChange={handlePriceChange}
+              className="price-input"
+            />
+          </div>
+          <div className="slider-container">
+            <input
+              type="range"
+              name="from"
+              min="1920"
+              max="7000"
+              value={priceRange.from}
+              onChange={handlePriceChange}
+              className="slider slider-from"
+            />
+            <input
+              type="range"
+              name="to"
+              min="1920"
+              max="7000"
+              value={priceRange.to}
+              onChange={handlePriceChange}
+              className="slider slider-to"
+            />
+            <div className="slider-track">
+              <div
+                className="slider-fill"
+                style={{
+                  left: `${fromPercent}%`,
+                  right: `${100 - toPercent}%`,
+                }}
+              />
+            </div>
+          </div>
+          <div className="price-range-values">
+            <span>1920</span>
+            <span>4500</span>
+            <span>7000</span>
+          </div>
         </div>
       </div>
 
-      <div className="filter-group">
-        <h4>Тип поезда</h4>
-        {trainTypes.map((type) => (
-          <label key={type.id} className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={filters.trainTypes.includes(type.id)}
-              onChange={(e) =>
-                handleCheckboxChange("trainTypes", type.id, e.target.checked)
-              }
-            />
-            <span>{type.label}</span>
-          </label>
-        ))}
-      </div>
-
-      <div className="filter-group">
-        <h4>Удобства</h4>
-        {amenities.map((amenity) => (
-          <label key={amenity.id} className="checkbox-label">
-            <input
-              type="checkbox"
-              checked={filters.amenities.includes(amenity.id)}
-              onChange={(e) =>
-                handleCheckboxChange("amenities", amenity.id, e.target.checked)
-              }
-            />
-            <span>{amenity.label}</span>
-          </label>
-        ))}
+      <div className="search-filters__directions">
+        <div className="direction-block">
+          <img src={rightIcon} alt="right" className="direction-icon-left" />
+          <span>Туда</span>
+          <img src={groupPlusIcon} alt="add" className="direction-icon-right" />
+        </div>
+        <div className="direction-block">
+          <img src={leftIcon} alt="left" className="direction-icon-left" />
+          <span>Обратно</span>
+          <img src={groupPlusIcon} alt="add" className="direction-icon-right" />
+        </div>
       </div>
     </div>
   );

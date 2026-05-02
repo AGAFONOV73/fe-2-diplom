@@ -1,115 +1,121 @@
 .train-card {
-  background: white;
-  border: 1px solid #c4c4c4;
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.train-card:hover {
-  border-color: #ffa800;
-}
-
-.train-card__header {
   display: flex;
-  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  margin-bottom: 15px;
+}
+
+/* LEFT - центрируем всё содержимое */
+.train-card__left {
+  width: 180px;
+  background: #e6e6ea;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
+  justify-content: center;
+  gap: 12px;
+  padding: 15px;
+  text-align: center;
+}
+
+.train-icon {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
 }
 
 .train-number {
-  font-weight: bold;
-  color: #1a2c3e;
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0;
 }
 
-.train-price {
-  font-weight: bold;
-  color: #ffa800;
-  font-size: 1.125rem;
+.train-route {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
 }
 
-.train-card__route {
+/* CENTER */
+.train-card__center {
+  flex: 1;
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+  padding: 20px;
 }
 
 .station {
   text-align: center;
 }
 
-.station .time {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #1a2c3e;
+.time {
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.station .city {
-  font-size: 0.875rem;
-  color: #6c86a3;
+.city {
+  font-size: 14px;
+  color: #666;
 }
 
 .duration {
-  flex: 1;
   text-align: center;
-  position: relative;
-  padding: 0 1rem;
 }
 
-.duration .line {
+.line {
+  width: 80px;
   height: 2px;
-  background: #e2e8f0;
-  position: relative;
+  background: #ccc;
+  margin: 5px auto;
 }
 
-.duration .line::before,
-.duration .line::after {
-  content: "●";
-  position: absolute;
-  top: -4px;
-  color: #0066cc;
+.time-text {
+  font-size: 12px;
+  color: #999;
 }
 
-.duration .line::before {
-  left: 0;
+/* RIGHT */
+.train-card__right {
+  width: 240px;
+  border-left: 1px solid #eee;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.duration .line::after {
-  right: 0;
+.train-prices {
+  font-size: 14px;
 }
 
-.duration .time-text {
-  font-size: 0.75rem;
-  color: #94a3b8;
-  margin-top: 0.25rem;
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-.train-card__footer {
+.train-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid #e2e8f0;
 }
 
 .free-seats {
-  font-size: 0.875rem;
-  color: #928f94;
+  font-size: 13px;
+  color: #666;
 }
 
 .select-btn {
   background: #ffa800;
-  color: #292929;
-  padding: 0.5rem 1rem;
-  border-radius: 2px;
+  padding: 8px 12px;
   text-decoration: none;
-  font-size: 0.875rem;
-  transition: background 0.3s;
+  font-weight: 700;
+  color: #000;
+  border-radius: 4px;
+  transition: background 0.2s;
 }
 
 .select-btn:hover {
-  background: #ffbf33;
+  background: #e69600;
 }

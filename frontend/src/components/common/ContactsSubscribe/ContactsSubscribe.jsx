@@ -1,13 +1,13 @@
 import { Container } from "../../ui/Container";
-import mapIcon from "../../../assets/icons/map.svg"; // импорт иконки
-import callIcon from "../../../assets/icons/call.svg"; // импорт иконки
-import letterIcon from "../../../assets/icons/letter.svg"; // импорт иконки
-import trainIcon from "../../../assets/icons/train.svg"; // импорт иконки
-import playIcon from "../../../assets/icons/play.svg"; // импорт иконки
+import mapIcon from "../../../assets/icons/map.svg";
+import callIcon from "../../../assets/icons/call.svg";
+import letterIcon from "../../../assets/icons/letter.svg";
+import trainIcon from "../../../assets/icons/train.svg";
+import playIcon from "../../../assets/icons/play.svg";
 import groupIcon from "../../../assets/icons/group.svg";
-import groupinIcon from "../../../assets/icons/groupin.svg"; // импорт иконки
-import facebookIcon from "../../../assets/icons/facebook.svg"; // импорт иконки
-import telegrammIcon from "../../../assets/icons/telegramm.svg"; // импорт иконки
+import groupinIcon from "../../../assets/icons/groupin.svg";
+import facebookIcon from "../../../assets/icons/facebook.svg";
+import telegrammIcon from "../../../assets/icons/telegramm.svg";
 import "./ContactsSubscribe.css";
 
 export function ContactsSubscribe() {
