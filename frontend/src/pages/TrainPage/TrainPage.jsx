@@ -4,7 +4,7 @@ import { Container } from "../../components/ui/Container";
 import { Button } from "../../components/ui/Button";
 import { SeatSelection } from "../../components/common/SeatSelection";
 import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
-import { BookingSidebar } from "../../components/common/BookingSidebar/BookingSidebar";
+import { SearchFilters } from "../../components/common/SearchFilters";
 import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
 import "./TrainPage.css";
 
@@ -25,7 +25,8 @@ export function TrainPage() {
     duration: "4ч 30м",
     price: 3500,
   };
-  const train = location.state?.train || getBookingDraft()?.train || fallbackTrain;
+  const train =
+    location.state?.train || getBookingDraft()?.train || fallbackTrain;
 
   const handleContinue = () => {
     if (selectedSeats.length > 0) {
@@ -39,25 +40,25 @@ export function TrainPage() {
       <BookingHeader activeStep={1} />
       <Container>
         <div className="train-page__layout">
-          <BookingSidebar />
+          <SearchFilters />
 
           <div className="train-page__main">
             <div className="train-page__header">
               <h1 className="train-page__title">ВЫБОР МЕСТ</h1>
-              <div className="train-info">
-                <div className="train-info__item">
+              {/* <div className="train-info"> */}
+              {/* <div className="train-info__item">
                   <span className="label">Поезд</span>
                   <span className="value">№{train.number}</span>
-                </div>
-                <div className="train-info__item">
+                </div> */}
+              {/* <div className="train-info__item">
                   <span className="label">Откуда</span>
                   <span className="value">{train.from}</span>
-                </div>
-                <div className="train-info__item">
+                </div> */}
+              {/* <div className="train-info__item">
                   <span className="label">Куда</span>
                   <span className="value">{train.to}</span>
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
             </div>
 
             <div className="train-page__content">
@@ -68,7 +69,8 @@ export function TrainPage() {
               <div className="total-info">
                 <span>Выбрано мест: {selectedSeats.length}</span>
                 <span className="total-price">
-                  Итого: {(selectedSeats.length * train.price).toLocaleString()} ₽
+                  Итого: {(selectedSeats.length * train.price).toLocaleString()}{" "}
+                  ₽
                 </span>
               </div>
               <Button

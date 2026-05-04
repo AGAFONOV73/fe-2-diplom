@@ -194,8 +194,8 @@ export function SearchFilters({ onFilterChange }) {
         {options.map((opt) => (
           <div
             key={opt.id}
-            className={`filter-row 
-              ${filters[opt.id] ? "active" : ""} 
+            className={`filter-row
+              ${filters[opt.id] ? "active" : ""}
               ${opt.disabled ? "disabled" : ""}
             `}
           >
