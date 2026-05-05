@@ -1,13 +1,14 @@
 .confirmation-page {
   background: #f3f3f7;
-  padding: 0 0 5rem;
+
   min-height: 70vh;
 }
 
 .confirmation-layout {
   display: flex;
-  gap: 24px;
-  padding-top: 2rem;
+  margin-top: 60px;
+  margin-bottom: 180px;
+  gap: 50px;
 }
 
 .confirmation-main {

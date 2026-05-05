@@ -73,7 +73,12 @@ function Calendar({ selectedDate, onSelect }) {
   );
 }
 
-export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
+export function BookingHeader({
+  activeStep = 1,
+  initialData,
+  onSearch,
+  isSearching,
+}) {
   const navigate = useNavigate();
   const [from, setFrom] = useState(initialData?.from || "");
   const [to, setTo] = useState(initialData?.to || "");
@@ -82,7 +87,6 @@ export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
   const [open, setOpen] = useState(null);
   const [filteredFrom, setFilteredFrom] = useState(cities);
   const [filteredTo, setFilteredTo] = useState(cities);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (initialData) {
@@ -116,17 +120,10 @@ export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
 
   const handleSearchClick = () => {
     const searchData = { from, to, dateFrom, dateTo };
-
     if (onSearch) {
-      setLoading(true);
       onSearch(searchData);
     } else {
-      // Иначе переходим на страницу поиска (с главной)
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        navigate("/search", { state: { searchData } });
-      }, 1500);
+      navigate("/search", { state: { searchData } });
     }
   };
 
@@ -151,7 +148,7 @@ export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
 
       <div className="booking-header__search">
         <Container className="booking-header__search-inner">
-          <div className="booking-search-group">
+          <div className="booking-search-group ">
             <span className="booking-search-group__title">Направление</span>
             <div className="booking-search-group__row">
               <div className="input-with-icon">
@@ -263,9 +260,9 @@ export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
 
             <div className="search-btn-wrapper">
               <button
-                className={`booking-header__search-btn ${loading ? "loading" : ""}`}
+                className={`booking-header__search-btn ${isSearching ? "loading" : ""}`}
                 onClick={handleSearchClick}
-                disabled={loading}
+                disabled={isSearching}
               >
                 НАЙТИ БИЛЕТЫ
               </button>
@@ -291,7 +288,7 @@ export function BookingHeader({ activeStep = 1, initialData, onSearch }) {
       </div>
 
       {/* Полоса загрузки — ПОД booking-steps */}
-      {loading && (
+      {isSearching && (
         <div className="loading-bar-wrapper">
           <div className="loading-bar-container">
             <div className="loading-bar"></div>

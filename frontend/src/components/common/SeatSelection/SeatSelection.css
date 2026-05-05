@@ -1,3 +1,5 @@
+/* SeatSelection.css */
+
 .seat-selection {
   width: 100%;
   background: white;
@@ -17,7 +19,6 @@
   align-items: center;
   gap: 8px;
   background: none;
-
   font-weight: 700;
   color: #292929;
   font-size: 20px;
@@ -29,7 +30,6 @@
 
 .ss-select-train-icon {
   margin-right: 10px;
-
   width: 76px;
   height: 60px;
   object-fit: contain;
@@ -72,6 +72,13 @@
   color: #999;
 }
 
+.ss-arrow-icon {
+  width: 30px;
+  height: 20px;
+  object-fit: contain;
+  margin: 0 4px;
+}
+
 /* ===== Блок информации о поезде ===== */
 .ss-train-info {
   display: flex;
@@ -102,16 +109,9 @@
 
 .part-3 {
   flex: 1;
-
   align-items: center;
   text-align: center;
-}
-
-.ss-train-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 48px;
+  gap: 10px;
 }
 
 .ss-train-icon-img {
@@ -160,14 +160,10 @@
   color: #999;
 }
 
-.ss-time-arrow {
-  font-size: 20px;
-  color: #ffa800;
-}
-
-.ss-duration-icon {
-  font-size: 24px;
-  margin-bottom: 4px;
+.ss-time-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .ss-duration {
@@ -214,8 +210,10 @@
 }
 
 .ss-ticket-hint {
-  font-size: 11px;
-  color: #999;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  color: #928f94;
   margin-top: 8px;
 }
 
@@ -234,73 +232,210 @@
 }
 
 .ss-wagon-types button {
-  padding: 8px 24px;
-  background: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
   border: none;
-  border-radius: 30px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s;
 }
 
-.ss-wagon-types button.active {
-  background: #ffa800;
-  color: white;
+.wagon-type-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
-/* ===== Вагоны ===== */
-.ss-wagons {
-  display: flex;
-  gap: 12px;
+.ss-wagon-types button.active {
+  background: transparent;
+  color: #ffa800;
+}
+
+.ss-wagon-types button.active .wagon-type-icon {
+  filter: brightness(0) saturate(100%) invert(68%) sepia(66%) saturate(1807%)
+    hue-rotate(0deg) brightness(103%) contrast(104%);
+}
+
+/* ===== Блок выбора вагонов (сверху, отдельно) ===== */
+.ss-wagon-left {
+  background: #f8f9fa;
+  padding: 16px 24px;
+  border-radius: 12px;
   margin-bottom: 16px;
 }
 
-.ss-wagon-btn {
+.ss-wagons-switch {
+  margin-bottom: 12px;
+}
+
+.wagon-switch-label {
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.wagon-switch-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.wagon-switch-btn {
   width: 50px;
   height: 40px;
-  background: #f0f0f0;
-  border: none;
+  background: white;
+  border: 1px solid #ddd;
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 16px;
+  transition: all 0.2s;
 }
 
-.ss-wagon-btn.active {
-  background: white;
-  color: #ffa800;
-  border: 1px solid #ffa800;
+.wagon-switch-btn.active {
+  background: #ffa800;
+  color: white;
+  border-color: #ffa800;
 }
 
-/* ===== Информация о вагоне ===== */
+.ss-wagon-note {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+/* ===== Основная информация о вагоне (три колонки) ===== */
 .ss-wagon-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  align-items: flex-start;
   background: #f8f9fa;
-  padding: 16px;
+  padding: 20px 24px;
   border-radius: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.ss-wagon-center {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
 }
 
 .ss-wagon-number {
-  font-size: 18px;
+  font-size: 48px;
   font-weight: 700;
+  color: #ffa800;
+  line-height: 1;
 }
 
-.ss-wagon-details {
+.ss-wagon-number span {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  margin-left: 4px;
+}
+
+.ss-wagon-right {
+  flex: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.ss-wagon-seats {
+  min-width: 100px;
+}
+
+.ss-wagon-seats-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.ss-wagon-stats {
   display: flex;
   gap: 16px;
-  font-size: 13px;
+  font-size: 14px;
   color: #666;
+}
+
+.ss-wagon-stats strong {
+  color: #333;
+  font-weight: 700;
 }
 
 .ss-wagon-prices {
   display: flex;
-  gap: 16px;
-  font-size: 13px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.price-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.price-value {
+  font-size: 16px;
+  font-weight: 600;
   color: #333;
+}
+
+.ss-wagon-service {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.service-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.service-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: #666;
+}
+
+.service-icons {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.service-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* ===== Футер (количество людей) ===== */
+.ss-wagon-footer {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 12px 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.people-count {
+  font-size: 14px;
+  color: #ffa800;
   font-weight: 500;
 }
 
@@ -313,66 +448,10 @@
   margin-bottom: 16px;
 }
 
-.ss-scheme-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 0 20px;
-}
-
-.ss-scheme-window {
-  font-size: 24px;
-}
-
-.ss-scheme-seats-label {
-  font-size: 12px;
-  color: #999;
-}
-
-.ss-seat-row {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.ss-seat-row-number {
-  width: 40px;
-  font-size: 11px;
-  color: #999;
-  display: flex;
-  align-items: center;
-}
-
-.ss-seat {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #e8e8e8;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.2s;
-}
-
-.ss-seat:hover {
-  background: #ffa800;
-  color: white;
-}
-
-.ss-seat.selected {
-  background: #ffa800;
-  color: white;
-}
-
-.ss-seat.unavailable {
-  background: #ddd;
-  color: #999;
-  cursor: not-allowed;
-  text-decoration: line-through;
+.ss-seats-image {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .ss-selected-info {
@@ -401,10 +480,4 @@
 .ss-footer-train-info {
   border-bottom: none;
   margin-bottom: 20px;
-}
-.ss-arrow-icon {
-  width: 30px;
-  height: 20px;
-  object-fit: contain;
-  margin: 0 4px;
 }

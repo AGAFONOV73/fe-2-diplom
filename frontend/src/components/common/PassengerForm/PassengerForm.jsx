@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Button } from "../../ui/Button";
-import { Input } from "../../ui/Input";
 import "./PassengerForm.css";
 
 export function PassengerForm({ passengerCount, onSubmit }) {
@@ -9,12 +7,17 @@ export function PassengerForm({ passengerCount, onSubmit }) {
       .fill()
       .map((_, i) => ({
         id: i,
+        type: "adult", // adult / child
         lastName: "",
         firstName: "",
         patronymic: "",
-        documentType: "passport",
-        documentNumber: "",
+        gender: "M",
         birthDate: "",
+        disability: false,
+        documentType: "passport", // passport / birthCert
+        passportSeries: "",
+        passportNumber: "",
+        birthCertNumber: "",
       })),
   );
 
@@ -24,90 +27,224 @@ export function PassengerForm({ passengerCount, onSubmit }) {
     setPassengers(updated);
   };
 
+  const addPassenger = () => {
+    setPassengers([
+      ...passengers,
+      {
+        id: passengers.length,
+        type: "adult",
+        lastName: "",
+        firstName: "",
+        patronymic: "",
+        gender: "M",
+        birthDate: "",
+        disability: false,
+        documentType: "passport",
+        passportSeries: "",
+        passportNumber: "",
+        birthCertNumber: "",
+      },
+    ]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Валидация
+    // Простая валидация
     const isValid = passengers.every(
-      (p) => p.lastName && p.firstName && p.documentNumber && p.birthDate,
+      (p) =>
+        p.lastName &&
+        p.firstName &&
+        p.birthDate &&
+        (p.documentType === "passport"
+          ? p.passportSeries && p.passportNumber
+          : p.birthCertNumber),
     );
-
     if (!isValid) {
-      alert("Пожалуйста, заполните все обязательные поля");
+      alert("Заполните все обязательные поля");
       return;
     }
-
     onSubmit(passengers);
   };
 
   return (
     <form className="passenger-form" onSubmit={handleSubmit}>
-      {passengers.map((passenger, index) => (
-        <div key={passenger.id} className="passenger-form__section">
-          <h3 className="passenger-form__title">Пассажир {index + 1}</h3>
-
-          <div className="form-row">
-            <Input
-              label="Фамилия"
-              value={passenger.lastName}
-              onChange={(e) => handleChange(index, "lastName", e.target.value)}
-              required
-            />
-            <Input
-              label="Имя"
-              value={passenger.firstName}
-              onChange={(e) => handleChange(index, "firstName", e.target.value)}
-              required
-            />
-            <Input
-              label="Отчество"
-              value={passenger.patronymic}
-              onChange={(e) =>
-                handleChange(index, "patronymic", e.target.value)
-              }
-            />
+      {passengers.map((passenger, idx) => (
+        <div key={passenger.id} className="passenger-card">
+          <div className="passenger-header">
+            <span className="passenger-number">Пассажир {idx + 1}</span>
+            <div className="passenger-type">
+              <label className="radio-label">
+                <input
+                  type="radio"
+                  name={`type-${idx}`}
+                  value="adult"
+                  checked={passenger.type === "adult"}
+                  onChange={() => handleChange(idx, "type", "adult")}
+                />
+                Взрослый
+              </label>
+              <label className="radio-label">
+                <input
+                  type="radio"
+                  name={`type-${idx}`}
+                  value="child"
+                  checked={passenger.type === "child"}
+                  onChange={() => handleChange(idx, "type", "child")}
+                />
+                Детский
+              </label>
+            </div>
           </div>
 
           <div className="form-row">
-            <div className="form-group">
+            <div className="form-field">
+              <label>Фамилия</label>
+              <input
+                type="text"
+                value={passenger.lastName}
+                onChange={(e) => handleChange(idx, "lastName", e.target.value)}
+                placeholder="Мартынюк"
+                required
+              />
+            </div>
+            <div className="form-field">
+              <label>Имя</label>
+              <input
+                type="text"
+                value={passenger.firstName}
+                onChange={(e) => handleChange(idx, "firstName", e.target.value)}
+                placeholder="Ирина"
+                required
+              />
+            </div>
+            <div className="form-field">
+              <label>Отчество</label>
+              <input
+                type="text"
+                value={passenger.patronymic}
+                onChange={(e) =>
+                  handleChange(idx, "patronymic", e.target.value)
+                }
+                placeholder="Эдуардовна"
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-field gender-field">
+              <label>Пол</label>
+              <div className="gender-buttons">
+                <label className="gender-label">
+                  <input
+                    type="radio"
+                    name={`gender-${idx}`}
+                    value="M"
+                    checked={passenger.gender === "M"}
+                    onChange={() => handleChange(idx, "gender", "M")}
+                  />
+                  М
+                </label>
+                <label className="gender-label">
+                  <input
+                    type="radio"
+                    name={`gender-${idx}`}
+                    value="F"
+                    checked={passenger.gender === "F"}
+                    onChange={() => handleChange(idx, "gender", "F")}
+                  />
+                  Ж
+                </label>
+              </div>
+            </div>
+            <div className="form-field">
+              <label>Дата рождения</label>
+              <input
+                type="date"
+                value={passenger.birthDate}
+                onChange={(e) => handleChange(idx, "birthDate", e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-field checkbox-field">
+              <label className="checkbox-label">
+                <input
+                  type="checkbox"
+                  checked={passenger.disability}
+                  onChange={(e) =>
+                    handleChange(idx, "disability", e.target.checked)
+                  }
+                />
+                ограниченная подвижность
+              </label>
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-field">
               <label>Тип документа</label>
               <select
                 value={passenger.documentType}
                 onChange={(e) =>
-                  handleChange(index, "documentType", e.target.value)
+                  handleChange(idx, "documentType", e.target.value)
                 }
-                className="select"
+                className="document-select"
               >
                 <option value="passport">Паспорт РФ</option>
-                <option value="birth">Свидетельство о рождении</option>
-                <option value="foreign">Загранпаспорт</option>
+                <option value="birthCert">Свидетельство о рождении</option>
               </select>
             </div>
-
-            <Input
-              label="Номер документа"
-              value={passenger.documentNumber}
-              onChange={(e) =>
-                handleChange(index, "documentNumber", e.target.value)
-              }
-              required
-            />
-
-            <Input
-              label="Дата рождения"
-              type="date"
-              value={passenger.birthDate}
-              onChange={(e) => handleChange(index, "birthDate", e.target.value)}
-              required
-            />
+            {passenger.documentType === "passport" && (
+              <>
+                <div className="form-field">
+                  <label>Серия</label>
+                  <input
+                    type="text"
+                    value={passenger.passportSeries}
+                    onChange={(e) =>
+                      handleChange(idx, "passportSeries", e.target.value)
+                    }
+                    placeholder="______"
+                  />
+                </div>
+                <div className="form-field">
+                  <label>Номер</label>
+                  <input
+                    type="text"
+                    value={passenger.passportNumber}
+                    onChange={(e) =>
+                      handleChange(idx, "passportNumber", e.target.value)
+                    }
+                    placeholder="______"
+                  />
+                </div>
+              </>
+            )}
+            {passenger.documentType === "birthCert" && (
+              <div className="form-field">
+                <label>Номер свидетельства</label>
+                <input
+                  type="text"
+                  value={passenger.birthCertNumber}
+                  onChange={(e) =>
+                    handleChange(idx, "birthCertNumber", e.target.value)
+                  }
+                  placeholder="12 символов"
+                  maxLength={12}
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}
 
-      <div className="passenger-form__actions">
-        <Button type="submit" variant="primary" size="large">
-          Продолжить оплату
-        </Button>
+      <div className="add-passenger-btn">
+        <button type="button" onClick={addPassenger}>
+          + Добавить пассажира
+        </button>
+      </div>
+
+      <div className="submit-btn">
+        <button type="submit">ДАЛЕЕ</button>
       </div>
     </form>
   );

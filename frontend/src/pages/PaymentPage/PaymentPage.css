@@ -1,12 +1,12 @@
 .payment-page {
   background: #f3f3f7;
-  padding: 0 0 4rem;
 }
 
 .payment-page__layout {
   display: flex;
-  gap: 24px;
-  padding-top: 2rem;
+  margin-top: 60px;
+  margin-bottom: 180px;
+  gap: 50px;
 }
 
 .payment-page__main {
@@ -81,7 +81,7 @@
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: #3e3c41;
   font-size: 0.875rem;
 }
 
@@ -105,12 +105,12 @@
 }
 
 .payment-summary {
+  margin-left: 15px;
   background: #fff;
   border: 1px solid #d9d9df;
   padding: 1.5rem;
   height: fit-content;
   position: sticky;
-  top: 2rem;
 }
 
 .payment-summary h3 {

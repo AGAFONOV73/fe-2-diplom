@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Container } from "../../components/ui/Container";
 import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
-import { SearchFilters } from "../../components/common/SearchFilters";
-import { TrainCard } from "../../components/common/TrainCard";
 
+import { TrainCard } from "../../components/common/TrainCard";
+import { TrainFilters } from "../../components/common/TrainFilters/TrainFilters";
 import { Loader } from "../../components/ui/Loader";
 import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
+import { ContactsSubscribe } from "../../components/common/ContactsSubscribe/ContactsSubscribe";
 import "./SearchPage.css";
 
 export function SearchPage() {
@@ -42,6 +43,28 @@ export function SearchPage() {
       price: 3200,
       freeSeats: 12,
     },
+    {
+      id: 3,
+      number: "042А",
+      from: "Москва",
+      to: "Адлер",
+      departureTime: "21:00",
+      arrivalTime: "12:30",
+      duration: "15ч 30м",
+      price: 5200,
+      freeSeats: 28,
+    },
+    {
+      id: 4,
+      number: "087М",
+      from: "Санкт-Петербург",
+      to: "Казань",
+      departureTime: "23:10",
+      arrivalTime: "10:20",
+      duration: "11ч 10м",
+      price: 3850,
+      freeSeats: 19,
+    },
   ];
 
   const handleSearch = (searchData) => {
@@ -51,10 +74,23 @@ export function SearchPage() {
     setSearchPerformed(true);
 
     setTimeout(() => {
-      setTrains(mockTrains);
+      let filteredTrains = [...mockTrains];
+
+      if (searchData?.from && searchData?.to) {
+        const fromNorm = searchData.from.toLowerCase().trim();
+        const toNorm = searchData.to.toLowerCase().trim();
+
+        filteredTrains = filteredTrains.filter(
+          (train) =>
+            train.from.toLowerCase() === fromNorm &&
+            train.to.toLowerCase() === toNorm,
+        );
+      }
+
+      setTrains(filteredTrains);
       setLoading(false);
     }, 1500);
-  };
+  }; // ✅ Теперь функция закрыта правильно
 
   return (
     <div className="search-page">
@@ -62,12 +98,13 @@ export function SearchPage() {
         activeStep={1}
         onSearch={handleSearch}
         initialData={currentSearchData}
+        isSearching={loading}
       />
 
       <Container>
         <div className="search-layout">
           <aside className="search-sidebar">
-            <SearchFilters />
+            <TrainFilters />
           </aside>
 
           <main className="search-content">
@@ -100,6 +137,7 @@ export function SearchPage() {
           </main>
         </div>
       </Container>
+      <ContactsSubscribe />
     </div>
   );
 }

@@ -1,12 +1,10 @@
 .train-page {
   background: #f3f3f7;
-  padding: 0 0 4rem;
 }
 
 .train-page__layout {
   display: flex;
-  gap: 24px;
-  padding-top: 2rem;
+  gap: 50px;
 }
 
 .train-page__main {
@@ -21,7 +19,7 @@
   font-size: 30px;
   font-weight: 500;
   color: #292929;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-bottom: 40px;
   margin-left: 45px;
 }
@@ -50,7 +48,8 @@
 }
 
 .train-page__footer {
-  margin-top: 1rem;
+  margin-top: 100px;
+  margin-bottom: 120px;
   padding-top: 1.5rem;
   border-top: 1px solid #d9d9df;
   display: flex;

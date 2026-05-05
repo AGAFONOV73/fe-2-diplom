@@ -1,23 +1,33 @@
 .passenger-page {
   background: #f3f3f7;
-  padding: 0 0 4rem;
+
+  min-height: 100vh;
 }
 
 .passenger-page__layout {
   display: flex;
-  gap: 24px;
-  padding-top: 2rem;
+  margin-top: 60px;
+  margin-bottom: 180px;
+  gap: 50px;
+
+  align-items: flex-start;
+}
+
+.passenger-page__layout > :first-child {
+  flex: 0 0 320px;
 }
 
 .passenger-page__main {
   flex: 1;
+  min-width: 0;
 }
 
 .passenger-page__title {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  color: #1a2c3e;
   text-align: left;
-  font-size: 1.8rem;
 }
 
 .passenger-page__summary {

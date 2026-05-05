@@ -5,7 +5,9 @@ import { Button } from "../../components/ui/Button";
 import { SeatSelection } from "../../components/common/SeatSelection";
 import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
 import { SearchFilters } from "../../components/common/SearchFilters";
+
 import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
+import { ContactsSubscribe } from "../../components/common/ContactsSubscribe/ContactsSubscribe";
 import "./TrainPage.css";
 
 export function TrainPage() {
@@ -27,12 +29,13 @@ export function TrainPage() {
   };
   const train =
     location.state?.train || getBookingDraft()?.train || fallbackTrain;
+  const handleFilterChange = (filters) => {
+    console.log("Фильтры изменены:", filters);
+  };
 
   const handleContinue = () => {
-    if (selectedSeats.length > 0) {
-      saveBookingDraft({ train, selectedSeats });
-      navigate("/passenger", { state: { train, selectedSeats } });
-    }
+    saveBookingDraft({ train, selectedSeats });
+    navigate("/passenger", { state: { train, selectedSeats } });
   };
 
   return (
@@ -40,7 +43,9 @@ export function TrainPage() {
       <BookingHeader activeStep={1} />
       <Container>
         <div className="train-page__layout">
-          <SearchFilters />
+          <aside className="train-page__sidebar">
+            <SearchFilters onFilterChange={handleFilterChange} />
+          </aside>
 
           <div className="train-page__main">
             <div className="train-page__header">
@@ -76,7 +81,7 @@ export function TrainPage() {
               <Button
                 variant="primary"
                 onClick={handleContinue}
-                disabled={selectedSeats.length === 0}
+                // disabled={selectedSeats.length === 0}
               >
                 ДАЛЕЕ
               </Button>
@@ -84,6 +89,7 @@ export function TrainPage() {
           </div>
         </div>
       </Container>
+      <ContactsSubscribe />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import calendarIcon from "../../../assets/icons/calendar.svg";
 import rightIcon from "../../../assets/icons/right.svg";
 import leftIcon from "../../../assets/icons/left.svg";
 import groupPlusIcon from "../../../assets/icons/group-plus.svg";
-import "./SearchFilters.css";
+import "./TrainFilters.css";
 
 function Calendar({ selectedDate, onSelect, onClose }) {
   const today = new Date();
@@ -78,7 +78,7 @@ function Calendar({ selectedDate, onSelect, onClose }) {
   );
 }
 
-export function SearchFilters({ onFilterChange }) {
+export function TrainFilters({ onFilterChange }) {
   const [filters, setFilters] = useState({
     coupe: false,
     platzkart: false,
@@ -94,18 +94,6 @@ export function SearchFilters({ onFilterChange }) {
   const [showReturnCalendar, setShowReturnCalendar] = useState(false);
   const [priceRange, setPriceRange] = useState({ from: 1920, to: 7000 });
 
-  // Состояния для времени "Туда"
-  const [departureTimeStart, setDepartureTimeStart] = useState(0);
-  const [departureTimeEnd, setDepartureTimeEnd] = useState(24);
-  const [arrivalTimeStart, setArrivalTimeStart] = useState(0);
-  const [arrivalTimeEnd, setArrivalTimeEnd] = useState(24);
-
-  // Состояния для времени "Обратно"
-  const [returnDepartureTimeStart, setReturnDepartureTimeStart] = useState(0);
-  const [returnDepartureTimeEnd, setReturnDepartureTimeEnd] = useState(24);
-  const [returnArrivalTimeStart, setReturnArrivalTimeStart] = useState(0);
-  const [returnArrivalTimeEnd, setReturnArrivalTimeEnd] = useState(24);
-
   const tripCalendarRef = useRef(null);
   const returnCalendarRef = useRef(null);
   const tripInputRef = useRef(null);
@@ -113,6 +101,7 @@ export function SearchFilters({ onFilterChange }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Для календаря "Дата поездки"
       if (
         tripCalendarRef.current &&
         !tripCalendarRef.current.contains(event.target) &&
@@ -121,6 +110,7 @@ export function SearchFilters({ onFilterChange }) {
       ) {
         setShowTripCalendar(false);
       }
+      // Для календаря "Дата возвращения"
       if (
         returnCalendarRef.current &&
         !returnCalendarRef.current.contains(event.target) &&
@@ -132,7 +122,9 @@ export function SearchFilters({ onFilterChange }) {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const options = [
@@ -176,7 +168,6 @@ export function SearchFilters({ onFilterChange }) {
 
   return (
     <div className="search-filters">
-      {/* ДАТЫ */}
       <div className="search-filters__dates">
         <div className="date-block">
           <div className="date-label">Дата поездки</div>
@@ -236,12 +227,14 @@ export function SearchFilters({ onFilterChange }) {
         </div>
       </div>
 
-      {/* ТИП ВАГОНОВ */}
       <div className="search-filters__section">
         {options.map((opt) => (
           <div
             key={opt.id}
-            className={`filter-row ${filters[opt.id] ? "active" : ""} ${opt.disabled ? "disabled" : ""}`}
+            className={`filter-row
+              ${filters[opt.id] ? "active" : ""}
+              ${opt.disabled ? "disabled" : ""}
+            `}
           >
             <div className="filter-left">
               <div className="filter-icon-wrapper">
@@ -263,7 +256,6 @@ export function SearchFilters({ onFilterChange }) {
         ))}
       </div>
 
-      {/* СТОИМОСТЬ */}
       <div className="search-filters__section">
         <h3 className="search-filters__title">Стоимость</h3>
         <div className="price-range-wrapper">
@@ -322,194 +314,16 @@ export function SearchFilters({ onFilterChange }) {
         </div>
       </div>
 
-      {/* ТУДА/ОБРАТНО С ПОЛЗУНКАМИ ВНУТРИ */}
       <div className="search-filters__directions">
-        {/* БЛОК ТУДА */}
         <div className="direction-block">
-          <div className="direction-header">
-            <img src={rightIcon} alt="right" className="direction-icon-left" />
-            <span>Туда</span>
-            <img
-              src={groupPlusIcon}
-              alt="add"
-              className="direction-icon-right"
-            />
-          </div>
-
-          <div className="time-section">
-            <div className="time-label">Время отбытия</div>
-            <div className="time-range-wrapper">
-              <div className="time-values">
-                <span>{departureTimeStart}:00</span>
-                <span>11:00</span>
-                <span>{departureTimeEnd}:00</span>
-              </div>
-              <div className="slider-container">
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={departureTimeStart}
-                  onChange={(e) =>
-                    setDepartureTimeStart(Number(e.target.value))
-                  }
-                  className="slider slider-from"
-                />
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={departureTimeEnd}
-                  onChange={(e) => setDepartureTimeEnd(Number(e.target.value))}
-                  className="slider slider-to"
-                />
-                <div className="slider-track">
-                  <div
-                    className="slider-fill"
-                    style={{
-                      left: `${(departureTimeStart / 24) * 100}%`,
-                      right: `${100 - (departureTimeEnd / 24) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="time-section">
-            <div className="time-label">Время прибытия</div>
-            <div className="time-range-wrapper">
-              <div className="time-values">
-                <span>{arrivalTimeStart}:00</span>
-                <span>11:00</span>
-                <span>{arrivalTimeEnd}:00</span>
-              </div>
-              <div className="slider-container">
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={arrivalTimeStart}
-                  onChange={(e) => setArrivalTimeStart(Number(e.target.value))}
-                  className="slider slider-from"
-                />
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={arrivalTimeEnd}
-                  onChange={(e) => setArrivalTimeEnd(Number(e.target.value))}
-                  className="slider slider-to"
-                />
-                <div className="slider-track">
-                  <div
-                    className="slider-fill"
-                    style={{
-                      left: `${(arrivalTimeStart / 24) * 100}%`,
-                      right: `${100 - (arrivalTimeEnd / 24) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <img src={rightIcon} alt="right" className="direction-icon-left" />
+          <span>Туда</span>
+          <img src={groupPlusIcon} alt="add" className="direction-icon-right" />
         </div>
-
-        {/* БЛОК ОБРАТНО */}
         <div className="direction-block">
-          <div className="direction-header">
-            <img src={leftIcon} alt="left" className="direction-icon-left" />
-            <span>Обратно</span>
-            <img
-              src={groupPlusIcon}
-              alt="add"
-              className="direction-icon-right"
-            />
-          </div>
-
-          <div className="time-section">
-            <div className="time-label">Время отбытия</div>
-            <div className="time-range-wrapper">
-              <div className="time-values">
-                <span>{returnDepartureTimeStart}:00</span>
-                <span>11:00</span>
-                <span>{returnDepartureTimeEnd}:00</span>
-              </div>
-              <div className="slider-container">
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={returnDepartureTimeStart}
-                  onChange={(e) =>
-                    setReturnDepartureTimeStart(Number(e.target.value))
-                  }
-                  className="slider slider-from"
-                />
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={returnDepartureTimeEnd}
-                  onChange={(e) =>
-                    setReturnDepartureTimeEnd(Number(e.target.value))
-                  }
-                  className="slider slider-to"
-                />
-                <div className="slider-track">
-                  <div
-                    className="slider-fill"
-                    style={{
-                      left: `${(returnDepartureTimeStart / 24) * 100}%`,
-                      right: `${100 - (returnDepartureTimeEnd / 24) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="time-section">
-            <div className="time-label">Время прибытия</div>
-            <div className="time-range-wrapper">
-              <div className="time-values">
-                <span>{returnArrivalTimeStart}:00</span>
-                <span>11:00</span>
-                <span>{returnArrivalTimeEnd}:00</span>
-              </div>
-              <div className="slider-container">
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={returnArrivalTimeStart}
-                  onChange={(e) =>
-                    setReturnArrivalTimeStart(Number(e.target.value))
-                  }
-                  className="slider slider-from"
-                />
-                <input
-                  type="range"
-                  min="0"
-                  max="24"
-                  value={returnArrivalTimeEnd}
-                  onChange={(e) =>
-                    setReturnArrivalTimeEnd(Number(e.target.value))
-                  }
-                  className="slider slider-to"
-                />
-                <div className="slider-track">
-                  <div
-                    className="slider-fill"
-                    style={{
-                      left: `${(returnArrivalTimeStart / 24) * 100}%`,
-                      right: `${100 - (returnArrivalTimeEnd / 24) * 100}%`,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+          <img src={leftIcon} alt="left" className="direction-icon-left" />
+          <span>Обратно</span>
+          <img src={groupPlusIcon} alt="add" className="direction-icon-right" />
         </div>
       </div>
     </div>

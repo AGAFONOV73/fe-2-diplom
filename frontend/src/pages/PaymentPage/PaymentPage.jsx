@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/Button";
 import { BookingHeader } from "../../components/common/BookingHeader/BookingHeader";
 import { OrderSummarySidebar } from "../../components/common/OrderSummarySidebar/OrderSummarySidebar";
 import { saveBookingDraft, getBookingDraft } from "../../utils/bookingDraft";
+import { ContactsSubscribe } from "../../components/common/ContactsSubscribe/ContactsSubscribe";
 import "./PaymentPage.css";
 
 export function PaymentPage() {
@@ -69,18 +70,25 @@ export function PaymentPage() {
           />
 
           <div className="payment-page__main">
-            <h1 className="page-title payment-page__title">ОПЛАТА</h1>
             <div className="payment-page__content">
               <div className="payment-form">
                 <h2>Персональные данные</h2>
                 <div className="form-row">
                   <div className="form-group">
                     <label>Фамилия</label>
-                    <input type="text" value={passengers[0]?.lastName || ""} readOnly />
+                    <input
+                      type="text"
+                      value={passengers[0]?.lastName || ""}
+                      readOnly
+                    />
                   </div>
                   <div className="form-group">
                     <label>Имя</label>
-                    <input type="text" value={passengers[0]?.firstName || ""} readOnly />
+                    <input
+                      type="text"
+                      value={passengers[0]?.firstName || ""}
+                      readOnly
+                    />
                   </div>
                   <div className="form-group">
                     <label>Отчество</label>
@@ -199,6 +207,7 @@ export function PaymentPage() {
           </div>
         </div>
       </Container>
+      <ContactsSubscribe />
     </div>
   );
 }

@@ -1,12 +1,10 @@
 .search-filters {
-  margin-top: 60px;
   background: #3e3c45;
   color: #fff;
   padding: 20px;
   border-radius: 8px;
 }
 
-/* ДАТЫ */
 .search-filters__dates {
   display: flex;
   flex-direction: column;
@@ -18,7 +16,6 @@
 
 .date-block {
   width: 100%;
-  position: relative;
 }
 
 .date-label {
@@ -27,7 +24,6 @@
   opacity: 0.7;
   margin-bottom: 8px;
 }
-
 .date-input-wrapper {
   position: relative;
   width: 100%;
@@ -60,7 +56,6 @@
   opacity: 1;
 }
 
-/* ТИП ВАГОНОВ */
 .search-filters__section {
   margin-bottom: 24px;
   padding-bottom: 16px;
@@ -88,11 +83,13 @@
 }
 
 .filter-icon-wrapper {
+  margin-left: 20px;
   width: 25px;
   height: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
   transition: all 0.3s ease;
 }
 
@@ -108,7 +105,50 @@
   transition: color 0.3s ease;
 }
 
-/* Тумблер */
+/* СОСТОЯНИЕ: выбрано (active) */
+/* .filter-row.active .filter-icon-wrapper {
+  background: #ffa800;
+} */
+
+/* .filter-row.active .filter-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+.filter-row.active .filter-label {
+  color: #ffa800;
+} */
+
+/* СОСТОЯНИЕ: не выбрано, при наведении */
+/* .filter-row:not(.active):not(.disabled):hover .filter-icon-wrapper {
+  background: #ffa800;
+}
+
+.filter-row:not(.active):not(.disabled):hover .filter-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+.filter-row:not(.active):not(.disabled):hover .filter-label {
+  color: #ffa800;
+} */
+
+/* СОСТОЯНИЕ: disabled (включены в стоимость) */
+/* .filter-row.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.filter-row.disabled .filter-icon-wrapper {
+  background: none;
+}
+
+.filter-row.disabled .filter-icon-img {
+  filter: grayscale(100%);
+}
+
+.filter-row.disabled .filter-label {
+  color: #888;
+} */
+
 .toggle {
   width: 72px;
   height: 24px;
@@ -143,7 +183,6 @@
   left: 50px;
 }
 
-/* СТОИМОСТЬ */
 .price-range-wrapper {
   width: 100%;
 }
@@ -227,40 +266,25 @@
   opacity: 0.7;
 }
 
-/* ТУДА / ОБРАТНО */
 .search-filters__directions {
   display: flex;
   flex-direction: column;
   gap: 0;
   margin-top: 8px;
+
   overflow: hidden;
 }
 
 .direction-block {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+
+  gap: 12px;
   padding: 14px 16px;
 }
-
 .direction-block:first-child {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-
-.direction-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-
-.direction-header span {
-  font-size: 30px;
-  font-weight: 700;
-  color: #fff;
-}
-
 .direction-icon-left {
   width: 32px;
   height: 26px;
@@ -273,75 +297,12 @@
   object-fit: contain;
   margin-left: auto;
 }
-
-/* Время (ползунки внутри Туда/Обратно) */
-.time-section {
-  width: 100%;
-  margin-top: 8px;
-  padding-left: 44px;
+.direction-block span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #e5e5e5;
 }
 
-.time-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 8px;
-}
-
-.time-range-wrapper {
-  width: 100%;
-}
-
-.time-values {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.time-range-wrapper .slider-container {
-  position: relative;
-  height: 4px;
-  margin: 16px 0 12px;
-}
-
-.time-range-wrapper .slider {
-  position: absolute;
-  width: 100%;
-  height: 4px;
-  background: transparent;
-  pointer-events: none;
-  appearance: none;
-}
-
-.time-range-wrapper .slider::-webkit-slider-thumb {
-  pointer-events: auto;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ffa800;
-  cursor: pointer;
-  appearance: none;
-  border: none;
-}
-
-.time-range-wrapper .slider-track {
-  position: absolute;
-  width: 100%;
-  height: 4px;
-  background: #666;
-  border-radius: 2px;
-}
-
-.time-range-wrapper .slider-fill {
-  position: absolute;
-  height: 4px;
-  background: #ffa800;
-  border-radius: 2px;
-}
-
-/* КАЛЕНДАРЬ */
 .calendar-modal {
   position: absolute;
   top: 100%;
@@ -404,4 +365,8 @@
 .calendar-day.selected {
   background: #ffa800;
   color: #fff;
+}
+
+.date-block {
+  position: relative;
 }
