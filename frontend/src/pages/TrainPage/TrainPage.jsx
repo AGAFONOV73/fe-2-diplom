@@ -50,20 +50,6 @@ export function TrainPage() {
           <div className="train-page__main">
             <div className="train-page__header">
               <h1 className="train-page__title">ВЫБОР МЕСТ</h1>
-              {/* <div className="train-info"> */}
-              {/* <div className="train-info__item">
-                  <span className="label">Поезд</span>
-                  <span className="value">№{train.number}</span>
-                </div> */}
-              {/* <div className="train-info__item">
-                  <span className="label">Откуда</span>
-                  <span className="value">{train.from}</span>
-                </div> */}
-              {/* <div className="train-info__item">
-                  <span className="label">Куда</span>
-                  <span className="value">{train.to}</span>
-                </div> */}
-              {/* </div> */}
             </div>
 
             <div className="train-page__content">

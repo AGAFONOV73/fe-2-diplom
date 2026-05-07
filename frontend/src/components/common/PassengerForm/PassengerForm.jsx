@@ -7,14 +7,14 @@ export function PassengerForm({ passengerCount, onSubmit }) {
       .fill()
       .map((_, i) => ({
         id: i,
-        type: "adult", // adult / child
+        type: "adult",
         lastName: "",
         firstName: "",
         patronymic: "",
         gender: "M",
         birthDate: "",
         disability: false,
-        documentType: "passport", // passport / birthCert
+        documentType: "passport",
         passportSeries: "",
         passportNumber: "",
         birthCertNumber: "",
@@ -49,7 +49,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Простая валидация
+
     const isValid = passengers.every(
       (p) =>
         p.lastName &&
@@ -103,7 +103,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 type="text"
                 value={passenger.lastName}
                 onChange={(e) => handleChange(idx, "lastName", e.target.value)}
-                placeholder="Мартынюк"
+                placeholder="------"
                 required
               />
             </div>
@@ -113,7 +113,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 type="text"
                 value={passenger.firstName}
                 onChange={(e) => handleChange(idx, "firstName", e.target.value)}
-                placeholder="Ирина"
+                placeholder="------"
                 required
               />
             </div>
@@ -125,7 +125,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 onChange={(e) =>
                   handleChange(idx, "patronymic", e.target.value)
                 }
-                placeholder="Эдуардовна"
+                placeholder="------"
               />
             </div>
           </div>

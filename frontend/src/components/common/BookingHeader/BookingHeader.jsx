@@ -78,6 +78,7 @@ export function BookingHeader({
   initialData,
   onSearch,
   isSearching,
+  hideSearchAndSteps,
 }) {
   const navigate = useNavigate();
   const [from, setFrom] = useState(initialData?.from || "");
@@ -146,154 +147,159 @@ export function BookingHeader({
         </Container>
       </div>
 
-      <div className="booking-header__search">
-        <Container className="booking-header__search-inner">
-          <div className="booking-search-group ">
-            <span className="booking-search-group__title">Направление</span>
-            <div className="booking-search-group__row">
-              <div className="input-with-icon">
-                <input
-                  value={from}
-                  placeholder="Откуда"
-                  onChange={(e) => handleCityFilter(e.target.value, "from")}
-                />
-                <img
-                  src={mapIcon}
-                  className="input-icon"
-                  alt=""
-                  onClick={() => setOpen(open === "from" ? null : "from")}
-                />
-                {open === "from" && (
-                  <div className="dropdown">
-                    {filteredFrom.map((c) => (
-                      <div
-                        key={c}
-                        onClick={() => {
-                          setFrom(c);
+      {!hideSearchAndSteps && (
+        <>
+          <div className="booking-header__search">
+            <Container className="booking-header__search-inner">
+              <div className="booking-search-group">
+                <span className="booking-search-group__title">Направление</span>
+                <div className="booking-search-group__row">
+                  <div className="input-with-icon">
+                    <input
+                      value={from}
+                      placeholder="Откуда"
+                      onChange={(e) => handleCityFilter(e.target.value, "from")}
+                    />
+                    <img
+                      src={mapIcon}
+                      className="input-icon"
+                      alt=""
+                      onClick={() => setOpen(open === "from" ? null : "from")}
+                    />
+                    {open === "from" && (
+                      <div className="dropdown">
+                        {filteredFrom.map((c) => (
+                          <div
+                            key={c}
+                            onClick={() => {
+                              setFrom(c);
+                              setOpen(null);
+                            }}
+                          >
+                            {c}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <button className="swap-btn" onClick={handleSwap}>
+                    <img src={swapIcon} alt="" className="swap-icon" />
+                  </button>
+
+                  <div className="input-with-icon">
+                    <input
+                      value={to}
+                      placeholder="Куда"
+                      onChange={(e) => handleCityFilter(e.target.value, "to")}
+                    />
+                    <img
+                      src={mapIcon}
+                      className="input-icon"
+                      alt=""
+                      onClick={() => setOpen(open === "to" ? null : "to")}
+                    />
+                    {open === "to" && (
+                      <div className="dropdown">
+                        {filteredTo.map((c) => (
+                          <div
+                            key={c}
+                            onClick={() => {
+                              setTo(c);
+                              setOpen(null);
+                            }}
+                          >
+                            {c}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="booking-search-group booking-search-group--date">
+                <span className="booking-search-group__title">Дата</span>
+                <div className="booking-search-group__row">
+                  <div className="input-with-icon">
+                    <input value={dateFrom} placeholder="Туда" readOnly />
+                    <img
+                      src={calendarIcon}
+                      className="input-icon"
+                      alt=""
+                      onClick={() =>
+                        setOpen(open === "dateFrom" ? null : "dateFrom")
+                      }
+                    />
+                    {open === "dateFrom" && (
+                      <Calendar
+                        selectedDate={dateFrom}
+                        onSelect={(d) => {
+                          setDateFrom(d);
                           setOpen(null);
                         }}
-                      >
-                        {c}
-                      </div>
-                    ))}
+                      />
+                    )}
                   </div>
-                )}
-              </div>
-
-              <button className="swap-btn" onClick={handleSwap}>
-                <img src={swapIcon} alt="" className="swap-icon" />
-              </button>
-
-              <div className="input-with-icon">
-                <input
-                  value={to}
-                  placeholder="Куда"
-                  onChange={(e) => handleCityFilter(e.target.value, "to")}
-                />
-                <img
-                  src={mapIcon}
-                  className="input-icon"
-                  alt=""
-                  onClick={() => setOpen(open === "to" ? null : "to")}
-                />
-                {open === "to" && (
-                  <div className="dropdown">
-                    {filteredTo.map((c) => (
-                      <div
-                        key={c}
-                        onClick={() => {
-                          setTo(c);
+                  <div className="input-with-icon">
+                    <input value={dateTo} placeholder="Обратно" readOnly />
+                    <img
+                      src={calendarIcon}
+                      className="input-icon"
+                      alt=""
+                      onClick={() =>
+                        setOpen(open === "dateTo" ? null : "dateTo")
+                      }
+                    />
+                    {open === "dateTo" && (
+                      <Calendar
+                        selectedDate={dateTo}
+                        onSelect={(d) => {
+                          setDateTo(d);
                           setOpen(null);
                         }}
-                      >
-                        {c}
-                      </div>
-                    ))}
+                      />
+                    )}
                   </div>
-                )}
+                </div>
+
+                <div className="search-btn-wrapper">
+                  <button
+                    className={`booking-header__search-btn ${isSearching ? "loading" : ""}`}
+                    onClick={handleSearchClick}
+                    disabled={isSearching}
+                  >
+                    НАЙТИ БИЛЕТЫ
+                  </button>
+                </div>
               </div>
-            </div>
+            </Container>
           </div>
 
-          <div className="booking-search-group booking-search-group--date">
-            <span className="booking-search-group__title">Дата</span>
-            <div className="booking-search-group__row">
-              <div className="input-with-icon">
-                <input value={dateFrom} placeholder="Туда" readOnly />
-                <img
-                  src={calendarIcon}
-                  className="input-icon"
-                  alt=""
-                  onClick={() =>
-                    setOpen(open === "dateFrom" ? null : "dateFrom")
-                  }
-                />
-                {open === "dateFrom" && (
-                  <Calendar
-                    selectedDate={dateFrom}
-                    onSelect={(d) => {
-                      setDateFrom(d);
-                      setOpen(null);
-                    }}
-                  />
-                )}
-              </div>
-              <div className="input-with-icon">
-                <input value={dateTo} placeholder="Обратно" readOnly />
-                <img
-                  src={calendarIcon}
-                  className="input-icon"
-                  alt=""
-                  onClick={() => setOpen(open === "dateTo" ? null : "dateTo")}
-                />
-                {open === "dateTo" && (
-                  <Calendar
-                    selectedDate={dateTo}
-                    onSelect={(d) => {
-                      setDateTo(d);
-                      setOpen(null);
-                    }}
-                  />
-                )}
+          <div className="booking-steps">
+            <Container className="booking-steps__inner">
+              {[1, 2, 3, 4].map((n) => (
+                <div
+                  key={n}
+                  className={`booking-step ${activeStep >= n ? "booking-step--active" : ""}`}
+                >
+                  <span className="booking-step__number">{n}</span>
+                  <span className="booking-step__label">
+                    {["Билеты", "Пассажиры", "Оплата", "Проверка"][n - 1]}
+                  </span>
+                </div>
+              ))}
+            </Container>
+          </div>
+
+          {isSearching && (
+            <div className="loading-bar-wrapper">
+              <div className="loading-bar-container">
+                <div className="loading-bar"></div>
               </div>
             </div>
-
-            <div className="search-btn-wrapper">
-              <button
-                className={`booking-header__search-btn ${isSearching ? "loading" : ""}`}
-                onClick={handleSearchClick}
-                disabled={isSearching}
-              >
-                НАЙТИ БИЛЕТЫ
-              </button>
-            </div>
-          </div>
-        </Container>
-      </div>
-
-      <div className="booking-steps">
-        <Container className="booking-steps__inner">
-          {[1, 2, 3, 4].map((n) => (
-            <div
-              key={n}
-              className={`booking-step ${activeStep >= n ? "booking-step--active" : ""}`}
-            >
-              <span className="booking-step__number">{n}</span>
-              <span>
-                {["Билеты", "Пассажиры", "Оплата", "Проверка"][n - 1]}
-              </span>
-            </div>
-          ))}
-        </Container>
-      </div>
-
-      {/* Полоса загрузки — ПОД booking-steps */}
-      {isSearching && (
-        <div className="loading-bar-wrapper">
-          <div className="loading-bar-container">
-            <div className="loading-bar"></div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </header>
   );

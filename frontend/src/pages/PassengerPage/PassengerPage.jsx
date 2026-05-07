@@ -14,7 +14,6 @@ export function PassengerPage() {
   const draft = getBookingDraft();
   const { train, selectedSeats } = location.state || draft || {};
 
-  // Моковые данные для обратного направления (пока нет реальных)
   const returnTrain = {
     number: "0055",
     from: "Санкт-Петербург",
@@ -50,7 +49,6 @@ export function PassengerPage() {
       <BookingHeader activeStep={2} />
       <Container>
         <div className="passenger-page__layout">
-          {/* Левая колонка – детали поездки (как на втором скриншоте) */}
           <OrderSummarySidebar
             train={train}
             returnTrain={returnTrain}
@@ -58,7 +56,6 @@ export function PassengerPage() {
             totalPrice={totalPrice}
           />
 
-          {/* Правая колонка – форма пассажиров */}
           <div className="passenger-page__main">
             <h1 className="passenger-page__title">ПАССАЖИРЫ</h1>
             <PassengerForm

@@ -1,1 +1,0 @@
-export { LastTickets } from "./LastTickets";

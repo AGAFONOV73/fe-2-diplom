@@ -94,13 +94,11 @@ export function SearchFilters({ onFilterChange }) {
   const [showReturnCalendar, setShowReturnCalendar] = useState(false);
   const [priceRange, setPriceRange] = useState({ from: 1920, to: 7000 });
 
-  // Состояния для времени "Туда"
   const [departureTimeStart, setDepartureTimeStart] = useState(0);
   const [departureTimeEnd, setDepartureTimeEnd] = useState(24);
   const [arrivalTimeStart, setArrivalTimeStart] = useState(0);
   const [arrivalTimeEnd, setArrivalTimeEnd] = useState(24);
 
-  // Состояния для времени "Обратно"
   const [returnDepartureTimeStart, setReturnDepartureTimeStart] = useState(0);
   const [returnDepartureTimeEnd, setReturnDepartureTimeEnd] = useState(24);
   const [returnArrivalTimeStart, setReturnArrivalTimeStart] = useState(0);
@@ -176,7 +174,6 @@ export function SearchFilters({ onFilterChange }) {
 
   return (
     <div className="search-filters">
-      {/* ДАТЫ */}
       <div className="search-filters__dates">
         <div className="date-block">
           <div className="date-label">Дата поездки</div>
@@ -236,7 +233,6 @@ export function SearchFilters({ onFilterChange }) {
         </div>
       </div>
 
-      {/* ТИП ВАГОНОВ */}
       <div className="search-filters__section">
         {options.map((opt) => (
           <div
@@ -263,7 +259,6 @@ export function SearchFilters({ onFilterChange }) {
         ))}
       </div>
 
-      {/* СТОИМОСТЬ */}
       <div className="search-filters__section">
         <h3 className="search-filters__title">Стоимость</h3>
         <div className="price-range-wrapper">
@@ -322,9 +317,7 @@ export function SearchFilters({ onFilterChange }) {
         </div>
       </div>
 
-      {/* ТУДА/ОБРАТНО С ПОЛЗУНКАМИ ВНУТРИ */}
       <div className="search-filters__directions">
-        {/* БЛОК ТУДА */}
         <div className="direction-block">
           <div className="direction-header">
             <img src={rightIcon} alt="right" className="direction-icon-left" />

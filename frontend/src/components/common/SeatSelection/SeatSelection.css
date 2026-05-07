@@ -1,5 +1,3 @@
-/* SeatSelection.css */
-
 .seat-selection {
   width: 100%;
   background: white;
@@ -7,7 +5,6 @@
   padding: 19px;
 }
 
-/* ===== Верхний блок ===== */
 .ss-header {
   display: flex;
   justify-content: flex-start;
@@ -37,7 +34,6 @@
     hue-rotate(0deg) brightness(103%) contrast(104%);
 }
 
-/* Другие поезда */
 .ss-other-trains {
   background: #f8f9fa;
   border-radius: 12px;
@@ -79,7 +75,6 @@
   margin: 0 4px;
 }
 
-/* ===== Блок информации о поезде ===== */
 .ss-train-info {
   display: flex;
   gap: 24px;
@@ -171,7 +166,6 @@
   font-weight: 500;
 }
 
-/* ===== Количество билетов ===== */
 .ss-tickets-title {
   font-size: 18px;
   font-weight: 700;
@@ -217,7 +211,6 @@
   margin-top: 8px;
 }
 
-/* ===== Тип вагона ===== */
 .ss-wagon-type-title {
   font-size: 16px;
   font-weight: 600;
@@ -261,7 +254,6 @@
     hue-rotate(0deg) brightness(103%) contrast(104%);
 }
 
-/* ===== Блок выбора вагонов (сверху, отдельно) ===== */
 .ss-wagon-left {
   background: #f8f9fa;
   padding: 16px 24px;
@@ -310,7 +302,6 @@
   margin-top: 8px;
 }
 
-/* ===== Основная информация о вагоне (три колонки) ===== */
 .ss-wagon-info {
   display: flex;
   justify-content: space-between;
@@ -424,7 +415,6 @@
   object-fit: contain;
 }
 
-/* ===== Футер (количество людей) ===== */
 .ss-wagon-footer {
   background: #f8f9fa;
   border-radius: 12px;
@@ -439,7 +429,6 @@
   font-weight: 500;
 }
 
-/* ===== Схема мест ===== */
 .ss-seats-scheme {
   background: #fafafa;
   border: 1px solid #e4e4e4;
@@ -464,7 +453,6 @@
   margin-bottom: 32px;
 }
 
-/* ===== Нижний повторяющийся блок ===== */
 .ss-footer-header {
   display: flex;
   justify-content: flex-end;

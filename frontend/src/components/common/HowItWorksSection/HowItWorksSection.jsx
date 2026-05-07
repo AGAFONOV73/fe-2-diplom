@@ -16,7 +16,7 @@ export function HowItWorksSection() {
         <div className="how-header">
           <SectionTitle className="how-title">Как это работает</SectionTitle>
           <Link to="/how-it-works" className="how-link-btn">
-            Узнать больше →
+            Узнать больше
           </Link>
         </div>
 

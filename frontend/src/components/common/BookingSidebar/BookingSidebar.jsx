@@ -32,12 +32,17 @@ export function BookingSidebar() {
       <div className="booking-sidebar__panel">
         <div className="booking-sidebar__last-title">ПОСЛЕДНИЕ БИЛЕТЫ</div>
         {lastTickets.map((ticket) => (
-          <div className="booking-sidebar__ticket" key={`${ticket.from}-${ticket.to}`}>
+          <div
+            className="booking-sidebar__ticket"
+            key={`${ticket.from}-${ticket.to}`}
+          >
             <div className="booking-sidebar__cities">
               <span>{ticket.from}</span>
               <span>{ticket.to}</span>
             </div>
-            <div className="booking-sidebar__price">{ticket.price.toLocaleString()} ₽</div>
+            <div className="booking-sidebar__price">
+              {ticket.price.toLocaleString()} ₽
+            </div>
           </div>
         ))}
       </div>

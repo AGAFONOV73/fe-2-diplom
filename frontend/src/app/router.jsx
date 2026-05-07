@@ -5,7 +5,7 @@ import { AboutPage } from "../pages/AboutPage/AboutPage";
 
 import { ReviewsPage } from "../pages/ReviewsPage/ReviewsPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
-import { LastTicketsPage } from "../pages/LastTicketsPage/LastTicketsPage";
+// import { LastTicketsPage } from "../pages/LastTicketsPage/LastTicketsPage";
 import { TrainPage } from "../pages/TrainPage/TrainPage";
 import { PassengerPage } from "../pages/PassengerPage/PassengerPage";
 import { PaymentPage } from "../pages/PaymentPage/PaymentPage";
@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
       { path: "reviews", element: <ReviewsPage /> },
       { path: "contacts", element: <ContactsPage /> },
       { path: "search", element: <SearchPage /> },
-      { path: "last-tickets", element: <LastTicketsPage /> },
+      // { path: "last-tickets", element: <LastTicketsPage /> },
       { path: "train/:id", element: <TrainPage /> },
       { path: "passenger", element: <PassengerPage /> },
       { path: "payment", element: <PaymentPage /> },

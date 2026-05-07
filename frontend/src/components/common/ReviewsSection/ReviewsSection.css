@@ -1,7 +1,3 @@
-/* ReviewsSection.css */
-
-/* ReviewsSection.css */
-
 .home-section--gray {
   background: #ffffff;
 }
@@ -36,7 +32,7 @@
   font-size: 36px;
   font-weight: 500;
 }
-/* Аватар с фото */
+
 .review-block__avatar {
   width: 206px;
   height: 207px;
@@ -75,7 +71,6 @@
   margin: 0;
 }
 
-/* Пагинация точками */
 .reviews-pagination {
   display: flex;
   justify-content: center;

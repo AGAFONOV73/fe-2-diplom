@@ -39,7 +39,6 @@ export function SeatSelection({
     ...train,
   };
 
-  // Функция для разбивки строки типа "9 часов 42 минуты"
   const formatDuration = (durationStr) => {
     const match = durationStr.match(/(\d+)\s*часов?\s*(\d+)\s*минут?/i);
     if (match) {
@@ -141,7 +140,6 @@ export function SeatSelection({
 
   return (
     <div className="seat-selection">
-      {/* Верхний блок: кнопка "Выбрать другой поезд" */}
       <div className="ss-header">
         <img src={rightIcon} alt="right" className="ss-select-train-icon" />
         <button
@@ -177,7 +175,6 @@ export function SeatSelection({
         </div>
       )}
 
-      {/* Информация о поезде (3 колонки) */}
       <div className="ss-train-info">
         <div className="ss-train-info__part part-1">
           <img
@@ -218,7 +215,6 @@ export function SeatSelection({
         </div>
       </div>
 
-      {/* Количество билетов */}
       <div className="ss-tickets-title">Количество билетов</div>
       <div className="ss-tickets-row">
         <div className="ss-ticket-card">
@@ -237,7 +233,6 @@ export function SeatSelection({
         </div>
       </div>
 
-      {/* Тип вагона */}
       <div className="ss-wagon-type-title">Тип вагона</div>
       <div className="ss-wagon-types">
         <button
@@ -270,7 +265,6 @@ export function SeatSelection({
         </button>
       </div>
 
-      {/* Блок выбора вагонов (сверху, отдельно) */}
       <div className="ss-wagon-left">
         <div className="ss-wagons-switch">
           <span className="wagon-switch-label">Вагоны</span>
@@ -293,7 +287,6 @@ export function SeatSelection({
         </div>
       </div>
 
-      {/* Основная информация о вагоне (три колонки) */}
       <div className="ss-wagon-info">
         <div className="ss-wagon-center">
           <div className="ss-wagon-number">
@@ -339,7 +332,6 @@ export function SeatSelection({
         </div>
       </div>
 
-      {/* Футер с количеством людей */}
       <div className="ss-wagon-footer">
         <span className="people-count">
           11 человек выбирают места в этом поезде
@@ -352,7 +344,6 @@ export function SeatSelection({
       </div>
       <div className="ss-selected-info">Места не выбраны</div>
 
-      {/* Нижний повторяющийся блок */}
       <div className="ss-footer-header">
         <img src={leftIcon} alt="left" className="ss-select-train-icon" />
         <button

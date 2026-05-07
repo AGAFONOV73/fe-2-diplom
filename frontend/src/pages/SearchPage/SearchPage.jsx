@@ -90,7 +90,7 @@ export function SearchPage() {
       setTrains(filteredTrains);
       setLoading(false);
     }, 1500);
-  }; // ✅ Теперь функция закрыта правильно
+  };
 
   return (
     <div className="search-page">
@@ -137,6 +137,7 @@ export function SearchPage() {
           </main>
         </div>
       </Container>
+
       <ContactsSubscribe />
     </div>
   );

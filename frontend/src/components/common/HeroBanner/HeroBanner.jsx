@@ -115,7 +115,6 @@ export function HeroBanner() {
   };
 
   const handleSearch = () => {
-    // Можно передать параметры поиска через state или URL
     navigate("/search", {
       state: {
         from: fromValue,

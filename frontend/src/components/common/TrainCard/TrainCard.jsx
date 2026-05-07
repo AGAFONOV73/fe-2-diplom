@@ -5,7 +5,6 @@ import "./TrainCard.css";
 export function TrainCard({ train }) {
   return (
     <div className="train-card">
-      {/* ЛЕВАЯ ЧАСТЬ */}
       <div className="train-card__left">
         <img
           src={trainCarriageIcon}
@@ -20,7 +19,6 @@ export function TrainCard({ train }) {
         </div>
       </div>
 
-      {/* ЦЕНТР */}
       <div className="train-card__center">
         <div className="station">
           <div className="time">{train.departureTime}</div>
