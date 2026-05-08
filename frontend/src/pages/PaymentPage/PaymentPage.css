@@ -22,52 +22,80 @@
 
 .payment-page__content {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: start;
 }
 
 .payment-form {
   background: white;
   border: 1px solid #d9d9df;
-  padding: 1.5rem;
+  padding: 38px 44px 44px;
+}
+
+.payment-section + .payment-section {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid #d9d9df;
 }
 
 .payment-form h2 {
-  margin-bottom: 1.5rem;
-  color: #1a2c3e;
+  margin: 0 0 24px;
+  color: #292929;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 100%;
 }
 
-.payment-methods {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
+.payment-box {
+  border: 1px solid #d9d9df;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
 }
 
-.payment-method {
-  display: flex;
+.payment-box__row {
+  padding: 18px 22px;
+  border-top: 1px solid #d9d9df;
+}
+
+.payment-box__row:first-child {
+  border-top: none;
+}
+
+.payment-toggle {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s;
+  gap: 12px;
+  font-size: 18px;
+  color: rgba(41, 41, 41, 0.75);
 }
 
-.payment-method--cash {
-  margin-top: 1rem;
-  border-top: 1px solid #e2e8f0;
-}
-
-.payment-method:hover {
-  border-color: #0066cc;
-  background: #f0f9ff;
-}
-
-.payment-method input {
+.payment-toggle input {
   width: 18px;
   height: 18px;
+  accent-color: #ffa800;
+}
+
+.payment-box__row--online {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.payment-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  color: rgba(41, 41, 41, 0.9);
+  cursor: pointer;
+}
+
+.payment-option input {
+  width: 18px;
+  height: 18px;
+  accent-color: #ffa800;
 }
 
 .card-form {
@@ -75,75 +103,62 @@
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 18px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #3e3c41;
-  font-size: 0.875rem;
+  margin-bottom: 8px;
+  color: rgba(41, 41, 41, 0.8);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid #d9d9df;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #0066cc;
+  border-color: rgba(255, 168, 0, 0.95);
 }
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.payment-summary {
-  margin-left: 15px;
-  background: #fff;
-  border: 1px solid #d9d9df;
-  padding: 1.5rem;
-  height: fit-content;
-  position: sticky;
-}
-
-.payment-summary h3 {
-  margin-bottom: 1rem;
-  color: #1a2c3e;
-}
-
-.summary-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #e2e8f0;
-  color: #4a5568;
-}
-
-.summary-total {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 0;
-  font-weight: bold;
-  font-size: 1.125rem;
-  color: #1a2c3e;
-}
-
-.summary-total .total-price {
-  color: #ffa800;
-  font-size: 1.25rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 22px;
 }
 
 .pay-button {
-  width: 100%;
-  margin-top: 1rem;
-  padding: 1rem;
+  min-width: 323px;
+  margin-top: 0;
+  height: 60px;
+  padding: 0 16px;
+}
+
+.payment-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 46px;
+}
+
+.field-error {
+  margin-top: 6px;
+  color: #ff4d4f;
+  font-size: 14px;
+  line-height: 120%;
+}
+
+.form-group input[aria-invalid="true"] {
+  border-color: #ff4d4f;
 }
 
 @media (max-width: 768px) {
@@ -155,7 +170,26 @@
     grid-template-columns: 1fr;
   }
 
-  .payment-summary {
-    position: static;
+  .payment-form {
+    padding: 26px 20px 26px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .payment-box__row--online {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pay-button {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .payment-actions {
+    margin-top: 24px;
   }
 }

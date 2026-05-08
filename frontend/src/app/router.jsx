@@ -5,29 +5,36 @@ import { AboutPage } from "../pages/AboutPage/AboutPage";
 
 import { ReviewsPage } from "../pages/ReviewsPage/ReviewsPage";
 import { SearchPage } from "../pages/SearchPage/SearchPage";
-// import { LastTicketsPage } from "../pages/LastTicketsPage/LastTicketsPage";
+import { LastTicketsPage } from "../pages/LastTicketsPage/LastTicketsPage";
 import { TrainPage } from "../pages/TrainPage/TrainPage";
 import { PassengerPage } from "../pages/PassengerPage/PassengerPage";
 import { PaymentPage } from "../pages/PaymentPage/PaymentPage";
 import { ConfirmationPage } from "../pages/ConfirmationPage/ConfirmationPage";
 import { ContactsPage } from "../pages/ContactsPage/ContactsPage";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: "about", element: <AboutPage /> },
+const baseUrl = import.meta.env.BASE_URL;
+const routerBasename =
+  baseUrl === "/" || baseUrl === "" ? undefined : baseUrl.replace(/\/+$/, "");
 
-      { path: "reviews", element: <ReviewsPage /> },
-      { path: "contacts", element: <ContactsPage /> },
-      { path: "search", element: <SearchPage /> },
-      // { path: "last-tickets", element: <LastTicketsPage /> },
-      { path: "train/:id", element: <TrainPage /> },
-      { path: "passenger", element: <PassengerPage /> },
-      { path: "payment", element: <PaymentPage /> },
-      { path: "confirmation", element: <ConfirmationPage /> },
-    ],
-  },
-]);
+export const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <MainLayout />,
+      children: [
+        { index: true, element: <HomePage /> },
+        { path: "about", element: <AboutPage /> },
+
+        { path: "reviews", element: <ReviewsPage /> },
+        { path: "contacts", element: <ContactsPage /> },
+        { path: "search", element: <SearchPage /> },
+        { path: "last-tickets", element: <LastTicketsPage /> },
+        { path: "train/:id", element: <TrainPage /> },
+        { path: "passenger", element: <PassengerPage /> },
+        { path: "payment", element: <PaymentPage /> },
+        { path: "confirmation", element: <ConfirmationPage /> },
+      ],
+    },
+  ],
+  routerBasename ? { basename: routerBasename } : {},
+);

@@ -105,14 +105,39 @@
   transition: color 0.3s ease;
 }
 
+/* СОСТОЯНИЕ: выбрано (active) */
+/* .filter-row.active .filter-icon-wrapper {
+  background: #ffa800;
+} */
+
+/* .filter-row.active .filter-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+.filter-row.active .filter-label {
+  color: #ffa800;
+} */
+
+/* СОСТОЯНИЕ: не выбрано, при наведении */
+/* .filter-row:not(.active):not(.disabled):hover .filter-icon-wrapper {
+  background: #ffa800;
+}
+
 .filter-row:not(.active):not(.disabled):hover .filter-icon-img {
   filter: brightness(0) invert(1);
 }
 
 .filter-row:not(.active):not(.disabled):hover .filter-label {
   color: #ffa800;
+} */
+
+/* СОСТОЯНИЕ: disabled (включены в стоимость) */
+/* .filter-row.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
-*/ .filter-row.disabled .filter-icon-wrapper {
+
+.filter-row.disabled .filter-icon-wrapper {
   background: none;
 }
 
@@ -122,8 +147,9 @@
 
 .filter-row.disabled .filter-label {
   color: #888;
-}
-*/ .toggle {
+} */
+
+.toggle {
   width: 72px;
   height: 24px;
   background: #888;

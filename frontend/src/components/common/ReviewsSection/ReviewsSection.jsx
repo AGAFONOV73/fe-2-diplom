@@ -4,14 +4,13 @@ import "./ReviewsSection.css";
 
 export function ReviewsSection() {
   return (
-    <section className="home-section home-section--gray">
+    <section id="reviews" className="home-section home-section--gray">
       <Container>
         <div className="review-block__title">Отзывы</div>
 
         <div className="reviews-split">
-          {/* Левый отзыв: фото → имя → текст */}
           <div className="review-block">
-            <div className="review-block__avatar">
+            <div className="review-block__avatar review-block__avatar--lg">
               <img
                 src="/src/assets/images/foto-ekaterina.png"
                 alt="Екатерина Вальнова"
@@ -28,9 +27,8 @@ export function ReviewsSection() {
             </div>
           </div>
 
-          {/* Правый отзыв: фото → имя → текст */}
           <div className="review-block">
-            <div className="review-block__avatar">
+            <div className="review-block__avatar review-block__avatar--sm">
               <img
                 src="/src/assets/images/foto-evg.png"
                 alt="Евгений Стрыкало"
@@ -48,7 +46,6 @@ export function ReviewsSection() {
           </div>
         </div>
 
-        {/* Пагинация точками */}
         <div className="reviews-pagination">
           <span className="pagination-dot pagination-dot--active"></span>
           <span className="pagination-dot"></span>

@@ -5,6 +5,7 @@
   margin-bottom: 15px;
 }
 
+/* LEFT - центрируем всё содержимое */
 .train-card__left {
   width: 180px;
   background: #e6e6ea;
@@ -35,6 +36,7 @@
   text-align: center;
 }
 
+/* CENTER */
 .train-card__center {
   flex: 1;
   display: flex;
@@ -73,6 +75,7 @@
   color: #999;
 }
 
+/* RIGHT */
 .train-card__right {
   width: 240px;
   border-left: 1px solid #eee;

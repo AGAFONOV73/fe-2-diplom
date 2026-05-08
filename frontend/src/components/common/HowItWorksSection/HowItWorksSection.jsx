@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container } from "../../ui/Container";
 import { SectionTitle } from "../../ui/SectionTitle";
-import { Button } from "../../ui/Button";
 
 import direction from "../../../assets/icons/direction.svg";
 import office from "../../../assets/icons/office.svg";
@@ -11,12 +10,12 @@ import "./HowItWorksSection.css";
 
 export function HowItWorksSection() {
   return (
-    <div className="how-section">
+    <section id="how-it-works" className="how-section">
       <Container>
         <div className="how-header">
           <SectionTitle className="how-title">Как это работает</SectionTitle>
-          <Link to="/how-it-works" className="how-link-btn">
-            Узнать больше
+          <Link to="/#how-it-works" className="how-link-btn">
+            Узнать больше →
           </Link>
         </div>
 
@@ -41,6 +40,6 @@ export function HowItWorksSection() {
           </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }

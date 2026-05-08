@@ -1,6 +1,6 @@
 .home-section {
-  padding: 144px 0;
-  border-bottom: 1px solid #edf2f7;
+  padding: 80px 0;
+  border-bottom: none;
 }
 
 .home-section--light {
@@ -17,11 +17,14 @@
   margin-bottom: 24px;
 }
 
-.about-title {
+.section-title.about-title {
   margin: 0 !important;
   text-align: left !important;
   font-size: 36px;
   font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
   color: #292929;
 }
 
@@ -48,7 +51,8 @@
   font-weight: 400;
   color: #292929;
   text-align: left;
-  line-height: 1.4;
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
 .about-text p {
@@ -58,6 +62,9 @@
 
 .highlight {
   font-weight: 700;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
   color: #292929;
 }
 

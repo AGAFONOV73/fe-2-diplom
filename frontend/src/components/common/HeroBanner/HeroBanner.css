@@ -3,7 +3,9 @@
   background-size: cover;
   background-position: center 30%;
   position: relative;
-  height: 100dvh;
+  height: 620px;
+  --hero-header-height: 160px;
+  padding-top: var(--hero-header-height);
 }
 
 .hero-banner::before {
@@ -22,10 +24,10 @@
 }
 
 .header {
-  position: fixed;
-  width: 100%;
+  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 100;
 }
 
@@ -33,17 +35,17 @@
   z-index: auto;
 }
 
-.logo-wrapper {
-  padding: 15px 0 0 0;
-}
-
 .logo-white {
   font-weight: 900;
   font-size: 36px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: white;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  color: #e5e5e5;
+  text-shadow: none;
+}
+
+.logo-wrapper {
+  padding: 15px 0 0 0;
 }
 
 .top-black-bar {
@@ -53,10 +55,21 @@
   display: flex;
   align-items: center;
   margin-top: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
 }
 
 .top-black-bar__container {
   width: 100%;
+}
+
+.hero-nav-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 }
 
 .nav-links-dark {
@@ -84,11 +97,37 @@
   text-decoration: underline;
 }
 
+.hero-burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-direction: column;
+}
+
+.hero-burger__bar {
+  width: 22px;
+  height: 2px;
+  background: #ffffff;
+  opacity: 0.9;
+}
+
+.hero-mobile-menu {
+  display: none;
+}
+
 .hero-container {
   height: 100%;
-  padding: 180px 24px 0 24px;
+  padding: 0 24px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .input-wrapper {
@@ -106,15 +145,21 @@
   z-index: 5;
 }
 
+.date-row .input-icon {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(76%) saturate(1659%)
+    hue-rotate(2deg) brightness(104%) contrast(103%);
+}
+
 .input-icon-arrow {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .hero-split {
   display: flex;
-  gap: 280px;
+  gap: 220px;
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -142,16 +187,17 @@
   flex: 1;
   flex-direction: column;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(41, 41, 41, 0.6);
   backdrop-filter: blur(4px);
   border-radius: 8px;
   position: relative;
   z-index: 5;
+  max-width: 729px;
 }
 
 .form-field label {
   font-weight: 300;
-  font-size: 30px;
+  font-size: 18px;
   line-height: 100%;
   letter-spacing: 0%;
   color: white;
@@ -173,7 +219,7 @@
   background: #ffffff;
   border-radius: 3px;
   border: none;
-  padding: 0 40px 0 16px;
+  padding: 0 64px 0 16px;
   font-size: 16px;
   color: #333;
 }
@@ -190,20 +236,40 @@
   background: #ffffff;
   border-radius: 3px;
   border: none;
-  padding: 0 40px 0 16px;
+  padding: 0 64px 0 16px;
   font-size: 16px;
   color: #333;
+}
+
+.input-clear {
+  position: absolute;
+  right: 46px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 168, 0, 0.18);
+  color: #ffa800;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
 }
 
 .btn-find {
   width: 48%;
   height: 60px;
   background: #ffa800;
-  border-radius: 5px;
+  border-radius: 2px;
   border: none;
   margin-left: auto;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 18px;
   color: #292929;
   cursor: pointer;
   margin-top: 92px;
@@ -300,6 +366,14 @@
   gap: 6px;
 }
 
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  padding: 4px 0;
+}
+
 .calendar-day {
   text-align: center;
   padding: 8px 4px;
@@ -308,6 +382,11 @@
   font-size: 14px;
   color: #333;
   transition: background 0.2s;
+}
+
+.calendar-day--empty {
+  cursor: default;
+  background: transparent;
 }
 
 .calendar-day:hover {
@@ -320,6 +399,19 @@
 }
 
 /* Адаптив */
+@media (max-width: 1024px) {
+  .nav-links-dark a {
+    font-size: 20px;
+    margin-right: 32px;
+  }
+
+  .top-black-bar {
+    height: auto;
+    min-height: 72px;
+    padding: 12px 0;
+  }
+}
+
 @media (max-width: 1200px) {
   .hero-split {
     gap: 80px;
@@ -336,8 +428,15 @@
 }
 
 @media (max-width: 860px) {
+  .hero-banner {
+    height: auto;
+    padding-bottom: 24px;
+  }
+
   .hero-container {
+    height: auto;
     padding-top: 200px;
+    padding-bottom: 24px;
   }
 
   .hero-split {
@@ -368,14 +467,40 @@
   }
 
   .nav-links-dark {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+    display: none;
   }
 
   .nav-links-dark a {
-    font-size: 20px;
-    margin-right: 0;
+    font-size: 16px;
+  }
+
+  .hero-burger {
+    display: inline-flex;
+  }
+
+  .hero-mobile-menu {
+    display: grid;
+    grid-auto-rows: minmax(44px, auto);
+    gap: 0;
+    margin-top: 12px;
+    background: #292929;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .hero-mobile-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 100%;
+    padding: 14px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-mobile-menu a:first-child {
+    border-top: none;
   }
 
   .logo-white {
@@ -389,10 +514,49 @@
   }
 
   .form-field label {
-    font-size: 24px;
+    font-size: 16px;
   }
 
   .direction-row {
     margin-bottom: 32px;
+  }
+
+  .bottom-orange-bar {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+  .nav-links-dark {
+    display: none;
+  }
+
+  .hero-burger {
+    display: inline-flex;
+  }
+
+  .hero-mobile-menu {
+    display: grid;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .nav-links-dark {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .hero-burger {
+    display: none;
+  }
+
+  .hero-mobile-menu {
+    display: none;
   }
 }

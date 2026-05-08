@@ -1,19 +1,15 @@
-import { Link } from "react-router-dom";
 import { Container } from "../../ui/Container";
 import { SectionTitle } from "../../ui/SectionTitle";
-import { Button } from "../../ui/Button";
 import "./AboutSection.css";
 
 export function AboutSection() {
   return (
-    <section className="home-section home-section--light">
+    <section id="about" className="home-section home-section--light">
       <Container>
         <div className="about-full">
-          {/* Заголовок сверху */}
           <div className="about-header">
             <SectionTitle className="about-title">О нас</SectionTitle>
           </div>
-          {/* Жёлтая полоса + текст (рядом) */}
           <div className="about-content_box">
             <div className="yellow-bar"></div>
             <div className="about-text">

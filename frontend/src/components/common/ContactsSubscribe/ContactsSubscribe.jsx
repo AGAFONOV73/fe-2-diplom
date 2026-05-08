@@ -8,14 +8,42 @@ import groupIcon from "../../../assets/icons/group.svg";
 import groupinIcon from "../../../assets/icons/groupin.svg";
 import facebookIcon from "../../../assets/icons/facebook.svg";
 import telegrammIcon from "../../../assets/icons/telegramm.svg";
+import { useState } from "react";
+import { subscribeApi } from "../../../services/subscribeApi";
+import { validateEmail } from "../../../utils/validators";
 import "./ContactsSubscribe.css";
 
 export function ContactsSubscribe() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    const trimmed = email.trim();
+    if (!validateEmail(trimmed)) {
+      setStatus("error");
+      setError("Введите корректный email");
+      return;
+    }
+
+    try {
+      setStatus("loading");
+      await subscribeApi.subscribe(trimmed);
+      setStatus("success");
+      setEmail("");
+    } catch (err) {
+      setStatus("error");
+      setError(err?.message || "Не удалось оформить подписку");
+    }
+  };
+
   return (
-    <div className="bottom-block">
+    <div id="contacts" className="bottom-block">
       <Container>
         <div className="bottom-block__inner">
-          {/* Левая колонка: Контакты */}
           <div className="bottom-block__contact">
             <h3 className="bottom-block__title">Свяжитесь с нами</h3>
             <ul className="contact-list">
@@ -44,20 +72,32 @@ export function ContactsSubscribe() {
             </ul>
           </div>
 
-          {/* Правая колонка: Подписка */}
           <div className="bottom-block__subscribe">
             <h3 className="bottom-block__title">Подписка</h3>
             <p className="subscribe-text">Будьте в курсе событий</p>
-            <form className="subscribe-form">
+            <form className="subscribe-form" onSubmit={handleSubmit}>
               <input
                 type="email"
                 className="subscribe-input"
                 placeholder="e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                aria-invalid={status === "error"}
               />
               <button type="submit" className="subscribe-btn">
-                ОТПРАВИТЬ
+                {status === "loading" ? "..." : "ОТПРАВИТЬ"}
               </button>
             </form>
+            {status === "error" && error ? (
+              <div className="subscribe-error" role="alert">
+                {error}
+              </div>
+            ) : null}
+            {status === "success" ? (
+              <div className="subscribe-success" role="status">
+                Подписка оформлена
+              </div>
+            ) : null}
             <h4 className="social-title">Подписывайтесь на нас</h4>
             <div className="social-icons">
               <a href="#" className="social-icon">

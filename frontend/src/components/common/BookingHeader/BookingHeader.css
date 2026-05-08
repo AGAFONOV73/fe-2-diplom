@@ -1,11 +1,10 @@
-/* ===================== */
-/* Общий контейнер */
 .booking-header {
   position: relative;
   z-index: 10;
+  background-color: #2d2b2f;
   background-image:
     linear-gradient(rgba(18, 18, 23, 0.72), rgba(18, 18, 23, 0.72)),
-    url("/src/assets/images/mask-proup.jpg");
+    url("/src/assets/images/booking-header-banner.png");
   background-size: cover;
   background-position: center;
 }
@@ -16,9 +15,9 @@
   padding-top: 20px;
 }
 .booking-header__logo {
-  font-size: 32px;
-  font-weight: 800;
-  color: #fff;
+  font-size: 36px;
+  font-weight: 900;
+  color: #e5e5e5;
   line-height: 1;
 }
 
@@ -26,12 +25,23 @@
 /* Темная полоса с меню */
 .booking-header__nav-bar {
   background: #2d2b2f;
-  margin-top: 55px;
+  margin-top: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
 }
 .booking-header__nav-inner {
   min-height: 72px;
   display: flex;
   align-items: center;
+  width: 100%;
+  position: relative;
+}
+.booking-header__nav-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .booking-header__nav {
   display: flex;
@@ -43,6 +53,33 @@
   color: #fff;
   text-decoration: none;
   font-size: 30px;
+  opacity: 0.85;
+}
+
+.booking-header__burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-direction: column;
+}
+
+.booking-header__burger-bar {
+  width: 22px;
+  height: 2px;
+  background: #ffffff;
+  opacity: 0.9;
+}
+
+.booking-header__mobile-menu {
+  display: none;
 }
 
 /* ===================== */
@@ -155,8 +192,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-
-  font-size: 25px;
 }
 .booking-step {
   color: #fff;
@@ -177,8 +212,8 @@
   padding: 0 10px;
 }
 .booking-step__number {
-  width: 45px;
-  height: 45px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.7);
   display: inline-flex;
@@ -193,10 +228,7 @@
 .booking-step--active .booking-step__number {
   border-color: #fff;
 }
-.booking-step__label {
-  font-size: 30px;
-  font-weight: 700;
-}
+
 /* ===================== */
 /* Поля с иконкой */
 .input-with-icon {
@@ -205,7 +237,7 @@
 }
 .input-with-icon input {
   width: 100%;
-  padding-right: 40px;
+  padding-right: 64px;
 }
 .input-with-icon img {
   position: absolute;
@@ -213,6 +245,30 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.booking-search-group--date .input-with-icon img {
+  filter: brightness(0) saturate(100%) invert(67%) sepia(76%) saturate(1659%)
+    hue-rotate(2deg) brightness(104%) contrast(103%);
+}
+
+.input-with-icon .input-clear {
+  position: absolute;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 168, 0, 0.18);
+  color: #ffa800;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Dropdown для подсказок */
@@ -260,11 +316,23 @@
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
 }
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  padding: 4px 0;
+}
 .calendar-day {
   padding: 6px;
   text-align: center;
   cursor: pointer;
   border-radius: 4px;
+}
+.calendar-day--empty {
+  cursor: default;
+  background: transparent;
 }
 .calendar-day:hover {
   background: #ffe38f;
@@ -290,18 +358,7 @@
   width: 0%;
   height: 100%;
   background: #ffa800;
-  animation: loading 1.5s ease-in-out forwards;
-}
-@keyframes loading {
-  0% {
-    width: 0%;
-  }
-  50% {
-    width: 70%;
-  }
-  100% {
-    width: 100%;
-  }
+  transition: width 200ms linear;
 }
 /* ===================== */
 /* Адаптив */
@@ -317,5 +374,72 @@
   .booking-steps__inner {
     grid-template-columns: repeat(2, 1fr);
     padding: 8px 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .booking-header__nav {
+    display: none;
+  }
+
+  .booking-header__burger {
+    display: inline-flex;
+  }
+
+  .booking-header__mobile-menu {
+    display: grid;
+    grid-auto-rows: minmax(44px, auto);
+    width: 100%;
+    margin-top: 12px;
+    background: #2d2b2f;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .booking-header__mobile-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 100%;
+    padding: 14px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0.95;
+  }
+
+  .booking-header__mobile-menu a:first-child {
+    border-top: none;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+  .booking-header__nav {
+    display: none;
+  }
+
+  .booking-header__burger {
+    display: inline-flex;
+  }
+
+  .booking-header__mobile-menu {
+    display: grid;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) {
+  .booking-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .booking-header__burger {
+    display: none;
+  }
+
+  .booking-header__mobile-menu {
+    display: none;
   }
 }

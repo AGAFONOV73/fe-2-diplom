@@ -7,8 +7,10 @@ export const API_CONFIG = {
 };
 
 export const ENDPOINTS = {
-  TICKETS: "/routes",
-  SEARCH: "/routes",
-  PAYMENT: "/order",
-  USER: "/users/me",
+  ROUTES: "/routes",
+  CITIES: "/routes/cities",
+  LAST_ROUTES: "/routes/last",
+  SEATS: "/routes",
+  ORDER: "/order",
+  SUBSCRIBE: "/subscribe",
 };

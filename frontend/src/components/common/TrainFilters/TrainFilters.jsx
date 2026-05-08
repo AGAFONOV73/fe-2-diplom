@@ -9,6 +9,8 @@ import calendarIcon from "../../../assets/icons/calendar.svg";
 import rightIcon from "../../../assets/icons/right.svg";
 import leftIcon from "../../../assets/icons/left.svg";
 import groupPlusIcon from "../../../assets/icons/group-plus.svg";
+import { useTicketStore } from "../../../store";
+import { ddmmyyyyToYyyyMmDd } from "../../../utils/dateFormat";
 import "./TrainFilters.css";
 
 function Calendar({ selectedDate, onSelect, onClose }) {
@@ -79,6 +81,11 @@ function Calendar({ selectedDate, onSelect, onClose }) {
 }
 
 export function TrainFilters({ onFilterChange }) {
+  const searchData = useTicketStore((s) => s.searchData);
+  const updateSearchData = useTicketStore((s) => s.updateSearchData);
+  const searchParams = useTicketStore((s) => s.searchParams);
+  const setSearchParams = useTicketStore((s) => s.setSearchParams);
+
   const [filters, setFilters] = useState({
     coupe: false,
     platzkart: false,
@@ -88,8 +95,8 @@ export function TrainFilters({ onFilterChange }) {
     express: false,
   });
 
-  const [tripDate, setTripDate] = useState("30.08.2018");
-  const [returnDate, setReturnDate] = useState("09.09.2018");
+  const tripDate = searchData?.dateFrom ?? "";
+  const returnDate = searchData?.dateTo ?? "";
   const [showTripCalendar, setShowTripCalendar] = useState(false);
   const [showReturnCalendar, setShowReturnCalendar] = useState(false);
   const [priceRange, setPriceRange] = useState({ from: 1920, to: 7000 });
@@ -101,7 +108,6 @@ export function TrainFilters({ onFilterChange }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Для календаря "Дата поездки"
       if (
         tripCalendarRef.current &&
         !tripCalendarRef.current.contains(event.target) &&
@@ -110,7 +116,6 @@ export function TrainFilters({ onFilterChange }) {
       ) {
         setShowTripCalendar(false);
       }
-      // Для календаря "Дата возвращения"
       if (
         returnCalendarRef.current &&
         !returnCalendarRef.current.contains(event.target) &&
@@ -191,7 +196,22 @@ export function TrainFilters({ onFilterChange }) {
             <div ref={tripCalendarRef}>
               <Calendar
                 selectedDate={tripDate}
-                onSelect={setTripDate}
+                onSelect={(d) => {
+                  updateSearchData({ dateFrom: d });
+                  const next = {
+                    ...(searchParams ?? {}),
+                    ...(d ? { date_start: ddmmyyyyToYyyyMmDd(d) } : {}),
+                    offset: 0,
+                  };
+                  setSearchParams(next);
+                  onFilterChange &&
+                    onFilterChange({
+                      ...filters,
+                      priceRange,
+                      tripDate: d,
+                      returnDate,
+                    });
+                }}
                 onClose={() => setShowTripCalendar(false)}
               />
             </div>
@@ -219,7 +239,22 @@ export function TrainFilters({ onFilterChange }) {
             <div ref={returnCalendarRef}>
               <Calendar
                 selectedDate={returnDate}
-                onSelect={setReturnDate}
+                onSelect={(d) => {
+                  updateSearchData({ dateTo: d });
+                  const next = {
+                    ...(searchParams ?? {}),
+                    ...(d ? { date_end: ddmmyyyyToYyyyMmDd(d) } : {}),
+                    offset: 0,
+                  };
+                  setSearchParams(next);
+                  onFilterChange &&
+                    onFilterChange({
+                      ...filters,
+                      priceRange,
+                      tripDate,
+                      returnDate: d,
+                    });
+                }}
                 onClose={() => setShowReturnCalendar(false)}
               />
             </div>

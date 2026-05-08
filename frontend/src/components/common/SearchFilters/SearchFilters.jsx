@@ -9,10 +9,13 @@ import calendarIcon from "../../../assets/icons/calendar.svg";
 import rightIcon from "../../../assets/icons/right.svg";
 import leftIcon from "../../../assets/icons/left.svg";
 import groupPlusIcon from "../../../assets/icons/group-plus.svg";
+import { useTicketStore } from "../../../store";
+import { ddmmyyyyToYyyyMmDd } from "../../../utils/dateFormat";
+import { useDebounce } from "../../../hooks/useDebounce";
 import "./SearchFilters.css";
 
 function Calendar({ selectedDate, onSelect, onClose }) {
-  const today = new Date();
+  const today = new Date(2026, 0, 1);
   const [monthOffset, setMonthOffset] = useState(0);
 
   const currentMonth = new Date(
@@ -42,7 +45,17 @@ function Calendar({ selectedDate, onSelect, onClose }) {
     0,
   ).getDate();
 
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  const firstDay = new Date(
+    currentMonth.getFullYear(),
+    currentMonth.getMonth(),
+    1,
+  ).getDay();
+  const offset = (firstDay + 6) % 7;
+  const cells = Array.from({ length: offset + daysInMonth }, (_, i) => {
+    const day = i - offset + 1;
+    return day >= 1 && day <= daysInMonth ? day : null;
+  });
 
   const handleDateSelect = (day) => {
     const dateString = `${String(day).padStart(2, "0")}.${String(currentMonth.getMonth() + 1).padStart(2, "0")}.${currentMonth.getFullYear()}`;
@@ -59,16 +72,28 @@ function Calendar({ selectedDate, onSelect, onClose }) {
           <button onClick={() => setMonthOffset(monthOffset + 1)}>&gt;</button>
         </div>
         <div className="calendar-grid">
-          {days.map((d) => {
-            const dateString = `${String(d).padStart(2, "0")}.${String(currentMonth.getMonth() + 1).padStart(2, "0")}.${currentMonth.getFullYear()}`;
+          {weekDays.map((d) => (
+            <div key={d} className="calendar-weekday">
+              {d}
+            </div>
+          ))}
+          {cells.map((day, idx) => {
+            if (!day)
+              return (
+                <div
+                  key={`e-${idx}`}
+                  className="calendar-day calendar-day--empty"
+                />
+              );
+            const dateString = `${String(day).padStart(2, "0")}.${String(currentMonth.getMonth() + 1).padStart(2, "0")}.${currentMonth.getFullYear()}`;
             const isSelected = selectedDate === dateString;
             return (
               <div
-                key={d}
+                key={`${day}-${idx}`}
                 className={`calendar-day ${isSelected ? "selected" : ""}`}
-                onClick={() => handleDateSelect(d)}
+                onClick={() => handleDateSelect(day)}
               >
-                {d}
+                {day}
               </div>
             );
           })}
@@ -79,6 +104,11 @@ function Calendar({ selectedDate, onSelect, onClose }) {
 }
 
 export function SearchFilters({ onFilterChange }) {
+  const searchData = useTicketStore((s) => s.searchData);
+  const updateSearchData = useTicketStore((s) => s.updateSearchData);
+  const searchParams = useTicketStore((s) => s.searchParams);
+  const setSearchParams = useTicketStore((s) => s.setSearchParams);
+
   const [filters, setFilters] = useState({
     coupe: false,
     platzkart: false,
@@ -88,11 +118,16 @@ export function SearchFilters({ onFilterChange }) {
     express: false,
   });
 
-  const [tripDate, setTripDate] = useState("30.08.2018");
-  const [returnDate, setReturnDate] = useState("09.09.2018");
+  const tripDate = searchData?.dateFrom ?? "";
+  const returnDate = searchData?.dateTo ?? "";
   const [showTripCalendar, setShowTripCalendar] = useState(false);
   const [showReturnCalendar, setShowReturnCalendar] = useState(false);
-  const [priceRange, setPriceRange] = useState({ from: 1920, to: 7000 });
+  const PRICE_MIN = 1920;
+  const PRICE_MAX = 7000;
+  const [priceRange, setPriceRange] = useState({
+    from: PRICE_MIN,
+    to: PRICE_MAX,
+  });
 
   const [departureTimeStart, setDepartureTimeStart] = useState(0);
   const [departureTimeEnd, setDepartureTimeEnd] = useState(24);
@@ -104,10 +139,118 @@ export function SearchFilters({ onFilterChange }) {
   const [returnArrivalTimeStart, setReturnArrivalTimeStart] = useState(0);
   const [returnArrivalTimeEnd, setReturnArrivalTimeEnd] = useState(24);
 
+  const debouncedTimes = useDebounce(
+    {
+      departureTimeStart,
+      departureTimeEnd,
+      arrivalTimeStart,
+      arrivalTimeEnd,
+      returnDepartureTimeStart,
+      returnDepartureTimeEnd,
+      returnArrivalTimeStart,
+      returnArrivalTimeEnd,
+    },
+    250,
+  );
+
   const tripCalendarRef = useRef(null);
   const returnCalendarRef = useRef(null);
   const tripInputRef = useRef(null);
   const returnInputRef = useRef(null);
+
+  const isParamsEqual = (a, b) => {
+    if (a === b) return true;
+    if (!a || !b) return false;
+    const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+    for (const k of keys) {
+      const av = a[k];
+      const bv = b[k];
+      const aHas = Object.prototype.hasOwnProperty.call(a, k);
+      const bHas = Object.prototype.hasOwnProperty.call(b, k);
+      if (!aHas && bv === undefined) continue;
+      if (!bHas && av === undefined) continue;
+      if (av !== bv) return false;
+    }
+    return true;
+  };
+
+  const applyParams = (
+    patch = {},
+    nextFilters = filters,
+    nextPriceRange = priceRange,
+    timesOverride = debouncedTimes,
+  ) => {
+    const times = patch.times ?? timesOverride;
+    const next = { ...(searchParams ?? {}), offset: 0, ...patch };
+
+    if (nextFilters.coupe) next.have_second_class = true;
+    else delete next.have_second_class;
+
+    if (nextFilters.platzkart) next.have_third_class = true;
+    else delete next.have_third_class;
+
+    if (nextFilters.sitting) next.have_fourth_class = true;
+    else delete next.have_fourth_class;
+
+    if (nextFilters.lux) next.have_first_class = true;
+    else delete next.have_first_class;
+
+    if (nextFilters.wifi) next.have_wifi = true;
+    else delete next.have_wifi;
+
+    if (nextFilters.express) next.have_express = true;
+    else delete next.have_express;
+
+    const priceFromNum = Number(nextPriceRange.from);
+    const priceToNum = Number(nextPriceRange.to);
+    if (Number.isFinite(priceFromNum) && priceFromNum > PRICE_MIN)
+      next.price_from = priceFromNum;
+    else delete next.price_from;
+    if (Number.isFinite(priceToNum) && priceToNum < PRICE_MAX)
+      next.price_to = priceToNum;
+    else delete next.price_to;
+
+    const setRange = (fromKey, toKey, from, to) => {
+      if (from <= 0 && to >= 24) {
+        delete next[fromKey];
+        delete next[toKey];
+        return;
+      }
+      if (typeof from === "number") next[fromKey] = from;
+      if (typeof to === "number") next[toKey] = to;
+    };
+
+    setRange(
+      "start_departure_hour_from",
+      "start_departure_hour_to",
+      times.departureTimeStart,
+      times.departureTimeEnd,
+    );
+    setRange(
+      "start_arrival_hour_from",
+      "start_arrival_hour_to",
+      times.arrivalTimeStart,
+      times.arrivalTimeEnd,
+    );
+    setRange(
+      "end_departure_hour_from",
+      "end_departure_hour_to",
+      times.returnDepartureTimeStart,
+      times.returnDepartureTimeEnd,
+    );
+    setRange(
+      "end_arrival_hour_from",
+      "end_arrival_hour_to",
+      times.returnArrivalTimeStart,
+      times.returnArrivalTimeEnd,
+    );
+
+    const prev = searchParams ?? {};
+    if (!isParamsEqual(prev, next)) {
+      setSearchParams(next);
+      onFilterChange && onFilterChange(next);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -133,6 +276,10 @@ export function SearchFilters({ onFilterChange }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    applyParams({ times: debouncedTimes });
+  }, [debouncedTimes]);
+
   const options = [
     { id: "coupe", label: "Купе", icon: cupeIcon, disabled: false },
     {
@@ -151,7 +298,7 @@ export function SearchFilters({ onFilterChange }) {
     if (disabled) return;
     const updated = { ...filters, [key]: !filters[key] };
     setFilters(updated);
-    onFilterChange && onFilterChange(updated);
+    applyParams({}, updated, priceRange, debouncedTimes);
   };
 
   const handlePriceChange = (e) => {
@@ -159,7 +306,7 @@ export function SearchFilters({ onFilterChange }) {
     const numValue = value === "" ? 0 : Number(value);
     const updated = { ...priceRange, [name]: numValue };
     setPriceRange(updated);
-    onFilterChange && onFilterChange({ ...filters, priceRange: updated });
+    applyParams({}, filters, updated, debouncedTimes);
   };
 
   const getPriceFill = () => {
@@ -185,7 +332,39 @@ export function SearchFilters({ onFilterChange }) {
               className="date-input"
               placeholder="ДД.ММ.ГГГГ"
               onClick={() => setShowTripCalendar(true)}
+              onKeyDown={(e) => {
+                if (e.key !== "Backspace" && e.key !== "Delete") return;
+                if (!tripDate) return;
+                e.preventDefault();
+                updateSearchData({ dateFrom: "" });
+                applyParams(
+                  { date_start: undefined },
+                  filters,
+                  priceRange,
+                  debouncedTimes,
+                );
+              }}
             />
+            {tripDate ? (
+              <button
+                type="button"
+                className="date-clear"
+                aria-label="Очистить дату"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateSearchData({ dateFrom: "" });
+                  applyParams(
+                    { date_start: undefined },
+                    filters,
+                    priceRange,
+                    debouncedTimes,
+                  );
+                }}
+              >
+                ×
+              </button>
+            ) : null}
             <img
               src={calendarIcon}
               alt="calendar"
@@ -197,7 +376,17 @@ export function SearchFilters({ onFilterChange }) {
             <div ref={tripCalendarRef}>
               <Calendar
                 selectedDate={tripDate}
-                onSelect={setTripDate}
+                onSelect={(d) => {
+                  updateSearchData({ dateFrom: d });
+                  applyParams(
+                    d
+                      ? { date_start: ddmmyyyyToYyyyMmDd(d) }
+                      : { date_start: undefined },
+                    filters,
+                    priceRange,
+                    debouncedTimes,
+                  );
+                }}
                 onClose={() => setShowTripCalendar(false)}
               />
             </div>
@@ -213,7 +402,39 @@ export function SearchFilters({ onFilterChange }) {
               className="date-input"
               placeholder="ДД.ММ.ГГГГ"
               onClick={() => setShowReturnCalendar(true)}
+              onKeyDown={(e) => {
+                if (e.key !== "Backspace" && e.key !== "Delete") return;
+                if (!returnDate) return;
+                e.preventDefault();
+                updateSearchData({ dateTo: "" });
+                applyParams(
+                  { date_end: undefined },
+                  filters,
+                  priceRange,
+                  debouncedTimes,
+                );
+              }}
             />
+            {returnDate ? (
+              <button
+                type="button"
+                className="date-clear"
+                aria-label="Очистить дату"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  updateSearchData({ dateTo: "" });
+                  applyParams(
+                    { date_end: undefined },
+                    filters,
+                    priceRange,
+                    debouncedTimes,
+                  );
+                }}
+              >
+                ×
+              </button>
+            ) : null}
             <img
               src={calendarIcon}
               alt="calendar"
@@ -225,7 +446,17 @@ export function SearchFilters({ onFilterChange }) {
             <div ref={returnCalendarRef}>
               <Calendar
                 selectedDate={returnDate}
-                onSelect={setReturnDate}
+                onSelect={(d) => {
+                  updateSearchData({ dateTo: d });
+                  applyParams(
+                    d
+                      ? { date_end: ddmmyyyyToYyyyMmDd(d) }
+                      : { date_end: undefined },
+                    filters,
+                    priceRange,
+                    debouncedTimes,
+                  );
+                }}
                 onClose={() => setShowReturnCalendar(false)}
               />
             </div>
@@ -408,7 +639,6 @@ export function SearchFilters({ onFilterChange }) {
           </div>
         </div>
 
-        {/* БЛОК ОБРАТНО */}
         <div className="direction-block">
           <div className="direction-header">
             <img src={leftIcon} alt="left" className="direction-icon-left" />

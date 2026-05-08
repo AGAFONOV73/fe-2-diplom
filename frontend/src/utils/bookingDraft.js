@@ -1,7 +1,9 @@
 const KEY = "booking_draft_v1";
 
 export function saveBookingDraft(data) {
-  localStorage.setItem(KEY, JSON.stringify(data));
+  const prev = getBookingDraft() ?? {};
+  const next = { ...prev, ...data };
+  localStorage.setItem(KEY, JSON.stringify(next));
 }
 
 export function getBookingDraft() {

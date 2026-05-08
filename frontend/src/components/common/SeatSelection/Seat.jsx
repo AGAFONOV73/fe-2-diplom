@@ -1,6 +1,6 @@
 import "./SeatSelection.css";
 
-export function Seat({ seat, isSelected, onSelect }) {
+export function Seat({ seat, isSelected, onSelect, className = "", style }) {
   const status = !seat.isAvailable
     ? "unavailable"
     : isSelected
@@ -9,7 +9,8 @@ export function Seat({ seat, isSelected, onSelect }) {
 
   return (
     <button
-      className={`seat seat--${status}`}
+      className={`seat seat--${status} ${className}`.trim()}
+      style={style}
       onClick={() => onSelect(seat)}
       disabled={!seat.isAvailable}
     >

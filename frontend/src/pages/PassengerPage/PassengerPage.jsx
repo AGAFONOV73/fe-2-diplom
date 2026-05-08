@@ -12,16 +12,8 @@ export function PassengerPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const draft = getBookingDraft();
-  const { train, selectedSeats } = location.state || draft || {};
-
-  const returnTrain = {
-    number: "0055",
-    from: "Санкт-Петербург",
-    to: "Москва",
-    departureDate: "03.09.2018",
-    departureTime: "10:30",
-    arrivalTime: "15:00",
-  };
+  const { train, selectedSeats, returnTrain, returnSeats } =
+    location.state || draft || {};
 
   useEffect(() => {
     if (!train || !selectedSeats) {
@@ -31,14 +23,30 @@ export function PassengerPage() {
 
   if (!train || !selectedSeats) return null;
 
-  const totalPrice = selectedSeats.length * train.price;
+  const totalPrice =
+    (selectedSeats || []).reduce(
+      (sum, s) => sum + (Number(s?.price ?? s?.basePrice ?? 0) || 0),
+      0,
+    ) +
+    (returnSeats || []).reduce(
+      (sum, s) => sum + (Number(s?.price ?? s?.basePrice ?? 0) || 0),
+      0,
+    );
 
   const handlePassengersSubmit = (passengerData) => {
-    saveBookingDraft({ train, selectedSeats, passengers: passengerData });
+    saveBookingDraft({
+      train,
+      selectedSeats,
+      returnTrain,
+      returnSeats,
+      passengers: passengerData,
+    });
     navigate("/payment", {
       state: {
         train,
         selectedSeats,
+        returnTrain,
+        returnSeats,
         passengers: passengerData,
       },
     });
@@ -51,8 +59,9 @@ export function PassengerPage() {
         <div className="passenger-page__layout">
           <OrderSummarySidebar
             train={train}
-            returnTrain={returnTrain}
             selectedSeats={selectedSeats}
+            returnTrain={returnTrain}
+            returnSeats={returnSeats}
             totalPrice={totalPrice}
           />
 

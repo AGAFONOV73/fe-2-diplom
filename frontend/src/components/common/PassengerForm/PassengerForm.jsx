@@ -27,29 +27,8 @@ export function PassengerForm({ passengerCount, onSubmit }) {
     setPassengers(updated);
   };
 
-  const addPassenger = () => {
-    setPassengers([
-      ...passengers,
-      {
-        id: passengers.length,
-        type: "adult",
-        lastName: "",
-        firstName: "",
-        patronymic: "",
-        gender: "M",
-        birthDate: "",
-        disability: false,
-        documentType: "passport",
-        passportSeries: "",
-        passportNumber: "",
-        birthCertNumber: "",
-      },
-    ]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const isValid = passengers.every(
       (p) =>
         p.lastName &&
@@ -103,7 +82,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 type="text"
                 value={passenger.lastName}
                 onChange={(e) => handleChange(idx, "lastName", e.target.value)}
-                placeholder="------"
+                placeholder="Мартынюк"
                 required
               />
             </div>
@@ -113,7 +92,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 type="text"
                 value={passenger.firstName}
                 onChange={(e) => handleChange(idx, "firstName", e.target.value)}
-                placeholder="------"
+                placeholder="Ирина"
                 required
               />
             </div>
@@ -125,7 +104,7 @@ export function PassengerForm({ passengerCount, onSubmit }) {
                 onChange={(e) =>
                   handleChange(idx, "patronymic", e.target.value)
                 }
-                placeholder="------"
+                placeholder="Эдуардовна"
               />
             </div>
           </div>
@@ -236,12 +215,6 @@ export function PassengerForm({ passengerCount, onSubmit }) {
           </div>
         </div>
       ))}
-
-      <div className="add-passenger-btn">
-        <button type="button" onClick={addPassenger}>
-          + Добавить пассажира
-        </button>
-      </div>
 
       <div className="submit-btn">
         <button type="submit">ДАЛЕЕ</button>

@@ -17,6 +17,7 @@
   gap: 35px;
   margin-bottom: 100px;
   display: flex;
+  align-items: center;
 
   transition: transform 0.2s;
 }
@@ -31,11 +32,13 @@
   margin-bottom: 50px;
   font-size: 36px;
   font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-transform: uppercase;
+  color: #292929;
 }
-
+/* Аватар с фото */
 .review-block__avatar {
-  width: 206px;
-  height: 207px;
   border-radius: 50%;
   overflow: hidden;
   background: #f0f7ff;
@@ -44,6 +47,16 @@
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.review-block__avatar--lg {
+  width: 206px;
+  height: 207px;
+}
+
+.review-block__avatar--sm {
+  width: 200px;
+  height: 201px;
 }
 
 .review-avatar-img {
@@ -57,20 +70,24 @@
 }
 
 .review-block__name {
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
-  color: #1a2c3e;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #292929;
   margin-bottom: 12px;
 }
 
 .review-block__text {
   font-size: 18px;
   font-weight: 300;
-
-  color: #2c3e50;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #292929;
   margin: 0;
 }
 
+/* Пагинация точками */
 .reviews-pagination {
   display: flex;
   justify-content: center;

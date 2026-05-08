@@ -2,7 +2,52 @@ import { Link } from "react-router-dom";
 import trainCarriageIcon from "../../../assets/icons/train-carriage.svg";
 import "./TrainCard.css";
 
-export function TrainCard({ train }) {
+function getClassMeta(key) {
+  switch (key) {
+    case "fourth":
+      return { label: "Сидячий", order: 4 };
+    case "third":
+      return { label: "Плацкарт", order: 3 };
+    case "second":
+      return { label: "Купе", order: 2 };
+    case "first":
+      return { label: "Люкс", order: 1 };
+    default:
+      return { label: key, order: 99 };
+  }
+}
+
+function getMinPriceForClass(priceInfoItem) {
+  if (!priceInfoItem || typeof priceInfoItem !== "object") return null;
+  const candidates = [
+    priceInfoItem.price,
+    priceInfoItem.bottom_price,
+    priceInfoItem.top_price,
+    priceInfoItem.side_price,
+  ].filter((v) => typeof v === "number" && Number.isFinite(v) && v > 0);
+  if (!candidates.length) return null;
+  return Math.min(...candidates);
+}
+
+export function TrainCard({ train, onSelect }) {
+  const classRows = (() => {
+    const seatsInfo = train?.seatsInfo ?? null;
+    const priceInfo = train?.priceInfo ?? null;
+    if (!seatsInfo || !priceInfo) return [];
+
+    const keys = ["fourth", "third", "second", "first"];
+    return keys
+      .map((key) => {
+        const seats = seatsInfo?.[key];
+        const price = getMinPriceForClass(priceInfo?.[key]);
+        if (!seats || !price) return null;
+        const meta = getClassMeta(key);
+        return { key, label: meta.label, seats, price, order: meta.order };
+      })
+      .filter(Boolean)
+      .sort((a, b) => a.order - b.order);
+  })();
+
   return (
     <div className="train-card">
       <div className="train-card__left">
@@ -36,21 +81,23 @@ export function TrainCard({ train }) {
         </div>
       </div>
 
-      {/* ПРАВАЯ ЧАСТЬ */}
       <div className="train-card__right">
         <div className="train-prices">
-          <div className="price-row">
-            <span>Сидячий</span>
-            <span>{train.price} ₽</span>
-          </div>
-          <div className="price-row">
-            <span>Плацкарт</span>
-            <span>{train.price + 500} ₽</span>
-          </div>
-          <div className="price-row">
-            <span>Купе</span>
-            <span>{train.price + 1200} ₽</span>
-          </div>
+          {classRows.length ? (
+            classRows.map((row) => (
+              <div key={row.key} className="price-row">
+                <span>
+                  {row.label} ({row.seats})
+                </span>
+                <span>{row.price} ₽</span>
+              </div>
+            ))
+          ) : (
+            <div className="price-row">
+              <span>Минимальная цена</span>
+              <span>{train.price} ₽</span>
+            </div>
+          )}
         </div>
 
         <div className="train-footer">
@@ -58,8 +105,9 @@ export function TrainCard({ train }) {
 
           <Link
             to={`/train/${train.id}`}
-            state={{ train }}
             className="select-btn"
+            onClick={onSelect}
+            state={{ train: train.raw ?? train }}
           >
             Выбрать места
           </Link>

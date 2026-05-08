@@ -39,7 +39,7 @@
   background: #fff;
   border: none;
   border-radius: 4px;
-  padding: 0 40px 0 12px;
+  padding: 0 64px 0 12px;
   font-size: 18px;
   font-weight: 400;
   color: #292929;
@@ -53,7 +53,28 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  opacity: 0.6;
+  filter: brightness(0) saturate(100%) invert(67%) sepia(76%) saturate(1659%)
+    hue-rotate(2deg) brightness(104%) contrast(103%);
+  opacity: 1;
+}
+
+.date-clear {
+  position: absolute;
+  right: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 168, 0, 0.18);
+  color: #ffa800;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .date-icon:hover {
